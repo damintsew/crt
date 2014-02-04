@@ -1,26 +1,16 @@
 package com.damintsev.client;
 
-import com.damintsev.client.service.Service;
-import com.damintsev.client.view.testform.HomeView;
-import com.damintsev.common.event.StartEditEvent;
-import com.damintsev.common.utils.Dialogs;
+import com.damintsev.client.view.HomeView;
+import com.damintsev.client.view.HomeViewImpl;
 import com.damintsev.common.utils.async.Async;
 import com.damintsev.common.utils.async.AsyncTask;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.RunAsyncCallback;
 import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.event.logical.shared.CloseEvent;
-import com.google.gwt.event.logical.shared.CloseHandler;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
-import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.Viewport;
 
 public class MainGWT implements EntryPoint {
@@ -65,7 +55,7 @@ public class MainGWT implements EntryPoint {
                 viewport.setStyleName("gwt_main");
 
                 RootPanel.get().add(viewport);
-                new HomeView(viewport);
+                HomeView homeView = new HomeViewImpl(viewport);
             }
         });
     }
