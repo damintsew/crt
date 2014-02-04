@@ -1,6 +1,7 @@
 package com.damintsev.client;
 
 import com.damintsev.client.service.Service;
+import com.damintsev.client.view.testform.HomeView;
 import com.damintsev.common.event.StartEditEvent;
 import com.damintsev.common.utils.Dialogs;
 import com.damintsev.common.utils.async.Async;
@@ -18,10 +19,14 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.Viewport;
 
 public class MainGWT implements EntryPoint {
 
     public void onModuleLoad() {
+        //cughting any JS exceptions
         GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
             public void onUncaughtException(Throwable throwable) {
                 String text = "Uncaught exception: ";
@@ -55,20 +60,12 @@ public class MainGWT implements EntryPoint {
         Async.runAsync(new AsyncTask() {
             @Override
             public void onSuccess() {
-                EventBus.get();
-//                RootPanel.get().add(UIRootPanel.get().getContent());
-                Service.instance.test(new AsyncCallback<Void>() {
-                    @Override
-                    public void onFailure(Throwable caught) {
+                EventBus.get(); //init component
+                Viewport viewport = new Viewport();
+                viewport.setStyleName("gwt_main");
 
-                    }
-
-                    @Override
-                    public void onSuccess(Void result) {
-                        Dialogs.alert("FUCK");
-
-                    }
-                });
+                RootPanel.get().add(viewport);
+                new HomeView(viewport);
             }
         });
     }
