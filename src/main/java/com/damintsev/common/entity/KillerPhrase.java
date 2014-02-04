@@ -1,6 +1,7 @@
 package com.damintsev.common.entity;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 /**
  * User: adamintsev

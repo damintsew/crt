@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "answer")
-public class Answer {
+public class Answer implements TreeItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,13 +1,19 @@
 package com.damintsev.client.view;
 
+import com.damintsev.common.entity.TreeItem;
+import com.damintsev.common.utils.AvalueProvider;
+import com.damintsev.common.utils.Dialogs;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
+import com.sencha.gxt.data.shared.PropertyAccess;
 import com.sencha.gxt.data.shared.TreeStore;
 import com.sencha.gxt.widget.core.client.event.FocusEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.event.ShowEvent;
 import com.sencha.gxt.widget.core.client.tree.Tree;
 
 /**
@@ -15,7 +21,7 @@ import com.sencha.gxt.widget.core.client.tree.Tree;
  * Date: 04.02.14
  * //todo написать комментарии
  */
-public class TreePanelViewImpl extends Composite implements TreePanelView {
+public class TreePanelViewImpl<T extends TreeItem> extends Composite implements TreePanelView<TreeItem> {
 
     @UiTemplate("TreePanelView.ui.xml")
     interface Binder extends UiBinder<Widget, TreePanelViewImpl> {
@@ -24,30 +30,6 @@ public class TreePanelViewImpl extends Composite implements TreePanelView {
     private static Binder uiBinder = GWT.create(Binder.class);
     private Presenter presenter;
 
-    @UiField (provided = true)
-    TreeStore store = new TreeStore(new ModelKeyProvider() {
-        @Override
-        public String getKey(Object item) {
-            return null;  //To change body of implemented methods use File | Settings | File Templates.
-        }
-    });
-    @UiField(provided = true)
-    ValueProvider valueProvider = new ValueProvider() {
-        @Override
-        public Object getValue(Object object) {
-            return null;  //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void setValue(Object object, Object value) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public String getPath() {
-            return null;  //To change body of implemented methods use File | Settings | File Templates.
-        }
-    };
     @UiField
     Tree tree;
 
@@ -55,21 +37,37 @@ public class TreePanelViewImpl extends Composite implements TreePanelView {
     public TreePanelViewImpl(final Presenter presenter) {
        initWidget(uiBinder.createAndBindUi(this));
         this.presenter = presenter;
-        tree.addFocusHandler(new FocusEvent.FocusHandler() {
-            @Override
-            public void onFocus(FocusEvent event) {
-                presenter.onEntitySelected(event);
-            }
-        });
     }
-
-//    @UiHandler(value = "focusHandler")
-//    public void focusHandler(FocusEvent event) {
-//      todo try this
-//    }
 
     @Override
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    @UiFactory
+    public Tree<TreeItem, String> createTree() {
+        TreeStore<TreeItem> store = new TreeStore<TreeItem>(new ModelKeyProvider<TreeItem>() {
+            @Override
+            public String getKey(TreeItem item) {
+                return item.getName();
+            }
+        });
+        ValueProvider<TreeItem, String> provider = new AvalueProvider<TreeItem, String>("name") {
+            @Override
+            public String getValue(TreeItem object) {
+                return object.getName();
+            }
+        };
+        return new Tree<TreeItem, String>(store, provider);
+    }
+
+    @UiHandler("expandAll")
+    public void expandAll(SelectEvent event) {
+        Dialogs.alert("FUFUUF");
+    }
+
+    @UiHandler("collapseAll")
+    public void collapseAll(SelectEvent event) {
+        tree.collapseAll();
     }
 }

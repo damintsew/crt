@@ -12,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "topics")
-public class Topic {
+public class Topic implements TreeItem {
 
     @Id
     private Long id;

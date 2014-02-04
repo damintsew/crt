@@ -5,8 +5,6 @@
              xmlns:tree="urn:import:com.sencha.gxt.widget.core.client.tree"
              xmlns:core="urn:import:com.sencha.gxt.widget.core.client">
 
-    <ui:with type="com.sencha.gxt.data.shared.TreeStore" field="store" />
-    <ui:with type="com.sencha.gxt.core.client.ValueProvider" field="valueProvider" />
 
     <ui:with type="com.sencha.gxt.core.client.util.Margins" field="margins">
         <ui:attributes top="4" right="4" bottom="4" left="4" />
@@ -27,14 +25,19 @@
 
 <core:TabPanel >
     <core:child config="{answer}">
-        <tree:Tree ui:field="tree" valueProvider="{valueProvider}" store="{store}">
+        <container:FlowLayoutContainer>
+        <tree:Tree ui:field="tree" width="500px">
         </tree:Tree>
+            <button:ButtonBar>
+                <button:TextButton text="Expand All" ui:field="expandAll" />
+                <button:TextButton text="Collapse All" ui:field="collapseAll" />
+            </button:ButtonBar>
+        </container:FlowLayoutContainer>
     </core:child>
     <core:child config="{entity}">
 
     </core:child>
 </core:TabPanel>
-
 
 
     </container:FlowLayoutContainer>
