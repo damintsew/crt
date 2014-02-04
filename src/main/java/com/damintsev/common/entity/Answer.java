@@ -1,6 +1,8 @@
 package com.damintsev.common.entity;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import java.util.List;
 
 /**
  * @author Damintsev Andrey
@@ -29,5 +31,63 @@ public class Answer {
     @Column(name = "disabled")
     private Integer disabled;
 
-//    pri
+    @JoinColumn(name = "topics_id")
+    @OneToMany
+    private List<Topic> topics;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public Float getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Float priority) {
+        this.priority = priority;
+    }
+
+    public Integer getDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(Integer disabled) {
+        this.disabled = disabled;
+    }
+
+    public List<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
+    }
 }

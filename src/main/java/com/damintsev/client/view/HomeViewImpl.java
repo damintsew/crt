@@ -20,26 +20,20 @@ public class HomeViewImpl implements HomeView {
     interface Binder extends UiBinder<Component, HomeViewImpl> {
     }
 
-//    @UiField(provided = true)
-//    BorderLayoutContainer.BorderLayoutData westData = new BorderLayoutContainer.BorderLayoutData(200);
-
     @UiField
     BorderLayoutContainer con;
     @UiField
     TreePanelViewImpl treePanel;
-
-//    @UiField
-//    TreePanel treePanel;
 
     private static Binder uiBinder = GWT.create(Binder.class);
 
     public HomeViewImpl(Viewport viewport) {
         Widget widget = uiBinder.createAndBindUi(this);
         viewport.add(widget);
-
     }
 
-    @UiFactory TreePanelViewImpl initTreePanel() {
+    @UiFactory
+    TreePanelViewImpl initTreePanel() {
         return new TreePanelViewImpl(new TreePanelPresenter());
     }
 }
