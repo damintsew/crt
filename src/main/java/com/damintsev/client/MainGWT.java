@@ -9,6 +9,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.widget.core.client.container.Viewport;
@@ -50,12 +51,9 @@ public class MainGWT implements EntryPoint {
         Async.runAsync(new AsyncTask() {
             @Override
             public void onSuccess() {
-                EventBus.get(); //init component
-                Viewport viewport = new Viewport();
-                viewport.setStyleName("gwt_main");
-
-                RootPanel.get().add(viewport);
-                HomeView homeView = new HomeViewImpl(viewport);
+                new MainView();
+                SimpleHistoryManager historyManager = new SimpleHistoryManager(EventBus.get());
+                History.fireCurrentHistoryState();
             }
         });
     }

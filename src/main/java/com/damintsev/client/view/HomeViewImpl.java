@@ -1,7 +1,6 @@
 package com.damintsev.client.view;
 
-import com.damintsev.client.presenter.TreePanelPresenter;
-import com.damintsev.client.view.testform.TreePanel;
+import com.damintsev.client.presenter.TreeAnswerPresenter;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiFactory;
@@ -34,6 +33,6 @@ public class HomeViewImpl implements HomeView {
 
     @UiFactory
     TreePanelViewImpl initTreePanel() {
-        return new TreePanelViewImpl(new TreePanelPresenter());
+        return new TreePanelViewImpl();
     }
 }

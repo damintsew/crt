@@ -29,8 +29,8 @@
         <tree:Tree ui:field="tree" width="500px">
         </tree:Tree>
             <button:ButtonBar>
-                <button:TextButton text="Expand All" ui:field="expandAll" />
-                <button:TextButton text="Collapse All" ui:field="collapseAll" />
+                <button:TextButton text="Добавить" ui:field="add" />
+                <button:TextButton text="Удалить" ui:field="remove" />
             </button:ButtonBar>
         </container:FlowLayoutContainer>
     </core:child>

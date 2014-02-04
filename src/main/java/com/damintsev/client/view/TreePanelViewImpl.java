@@ -16,32 +16,38 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.ShowEvent;
 import com.sencha.gxt.widget.core.client.tree.Tree;
 
+import java.util.List;
+
 /**
  * User: adamintsev
  * Date: 04.02.14
  * //todo написать комментарии
  */
-public class TreePanelViewImpl<T extends TreeItem> extends Composite implements TreePanelView<TreeItem> {
+public class TreePanelViewImpl<T extends TreeItem> extends Composite implements TreePanelView<T> {
 
     @UiTemplate("TreePanelView.ui.xml")
     interface Binder extends UiBinder<Widget, TreePanelViewImpl> {
     }
 
     private static Binder uiBinder = GWT.create(Binder.class);
-    private Presenter presenter;
+    private Presenter<T> presenter;
 
     @UiField
-    Tree tree;
+    Tree<T, String> tree;
 
     @UiConstructor
-    public TreePanelViewImpl(final Presenter presenter) {
+    public TreePanelViewImpl() {
        initWidget(uiBinder.createAndBindUi(this));
+    }
+
+    @Override
+    public void setPresenter(Presenter<T> presenter) {
         this.presenter = presenter;
     }
 
     @Override
-    public void setPresenter(Presenter presenter) {
-        this.presenter = presenter;
+    public void setData(List<T> data) {
+        tree.getStore().add(data);
     }
 
     @UiFactory
@@ -61,13 +67,21 @@ public class TreePanelViewImpl<T extends TreeItem> extends Composite implements 
         return new Tree<TreeItem, String>(store, provider);
     }
 
-    @UiHandler("expandAll")
-    public void expandAll(SelectEvent event) {
-        Dialogs.alert("FUFUUF");
+    @UiHandler("add")
+    public void add(SelectEvent event) {
+        presenter.addEntity();
     }
 
-    @UiHandler("collapseAll")
-    public void collapseAll(SelectEvent event) {
-        tree.collapseAll();
+    @UiHandler("remove")
+    public void remove(SelectEvent event) {
+        T selected = tree.getSelectionModel().getSelectedItem();
+        if(selected == null) return;
+        presenter.removeEntity(selected);
     }
+
+    @UiHandler("tree")
+    public void onFocus(FocusEvent event) {
+        Dialogs.alert("FUCK");
+    }
+
 }
