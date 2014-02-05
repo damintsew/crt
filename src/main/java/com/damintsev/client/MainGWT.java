@@ -1,7 +1,5 @@
 package com.damintsev.client;
 
-import com.damintsev.client.view.HomeView;
-import com.damintsev.client.view.HomeViewImpl;
 import com.damintsev.common.utils.async.Async;
 import com.damintsev.common.utils.async.AsyncTask;
 import com.google.gwt.core.client.EntryPoint;
@@ -11,8 +9,6 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.sencha.gxt.widget.core.client.container.Viewport;
 
 public class MainGWT implements EntryPoint {
 

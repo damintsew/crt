@@ -50,12 +50,12 @@ public class MainView {
         EventBus.get().addHandler(ShowAnswerSectionEvent.TYPE, new ShowAnswerSectionHandler() {
             @Override
             public void onShow(ShowAnswerSectionEvent event) {
-                TreePanelView<Topic> treePanelView = null;
-                if((treePanelView = (TreePanelView<Topic>) viewMap.get("answer")) == null) {
-                    treePanelView = new TreePanelViewImpl<Topic>();
+                TreePanelView<TreeItem> treePanelView = null;
+                if((treePanelView = (TreePanelView<TreeItem>) viewMap.get("answer")) == null) {
+                    treePanelView = new TreePanelViewImpl<TreeItem>();
                     viewMap.put("answer", treePanelView);
                 }
-                TreePanelView.Presenter<Topic> presenter = new TreeAnswerPresenter(treePanelView);
+                TreePanelView.Presenter<TreeItem> presenter = new TreeAnswerPresenter(treePanelView);
                 body.setWestWidget(presenter.asWidget(), new BorderLayoutContainer.BorderLayoutData(250));
                 presenter.loadRootElements();
             }

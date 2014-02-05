@@ -4,6 +4,8 @@ import com.damintsev.common.entity.Entity;
 import com.damintsev.common.entity.TreeItem;
 import com.damintsev.common.utils.AvalueProvider;
 import com.damintsev.common.utils.Dialogs;
+import com.damintsev.common.utils.Intell;
+import com.damintsev.common.utils.IntelligentTreeStore;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.Composite;
@@ -32,6 +34,7 @@ public class TreePanelViewImpl<T extends TreeItem> extends Composite implements 
 
     private static Binder uiBinder = GWT.create(Binder.class);
     private Presenter<T> presenter;
+    private IntelligentTreeStore<TreeItem> store;
 
     @UiField
     Tree<T, String> tree;
@@ -42,9 +45,9 @@ public class TreePanelViewImpl<T extends TreeItem> extends Composite implements 
     }
 
     @Override
-    public void setRootNodes(List<T> rootNodes) {
+    public  void setRootNodes(List<T> items) {
         tree.getStore().clear();
-        tree.getStore().add(rootNodes);
+        tree.getStore().appendAll(items);
     }
 
     @Override
@@ -52,17 +55,17 @@ public class TreePanelViewImpl<T extends TreeItem> extends Composite implements 
         this.presenter = presenter;
     }
 
-    @Override
-    public void setData(List<T> data) {
-        tree.getStore().add(data);
-    }
-
     @UiFactory
     public Tree<TreeItem, String> createTree() {
-        TreeStore<TreeItem> store = new TreeStore<TreeItem>(new ModelKeyProvider<TreeItem>() {
+        store = new IntelligentTreeStore<TreeItem>(new ModelKeyProvider<TreeItem>() {
             @Override
             public String getKey(TreeItem item) {
                 return item.getName();
+            }
+        }, new Intell<TreeItem>() {
+            @Override
+            public TreeItem getParent(TreeItem item) {
+                return item.getParent();
             }
         });
         ValueProvider<TreeItem, String> provider = new AvalueProvider<TreeItem, String>("name") {
@@ -88,7 +91,7 @@ public class TreePanelViewImpl<T extends TreeItem> extends Composite implements 
 
     @UiHandler("tree")
     public void onFocus(FocusEvent event) {
-        Dialogs.alert("FUCK");
+
     }
 
 }

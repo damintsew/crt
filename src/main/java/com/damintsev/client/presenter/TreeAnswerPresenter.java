@@ -3,11 +3,12 @@ package com.damintsev.client.presenter;
 import com.damintsev.client.service.RpcService;
 import com.damintsev.client.view.TreePanelView;
 import com.damintsev.common.Callback;
-import com.damintsev.common.entity.Answer;
-import com.damintsev.common.entity.Entity;
 import com.damintsev.common.entity.Topic;
+import com.damintsev.common.entity.TreeItem;
 import com.google.gwt.user.client.ui.Widget;
+import com.sencha.gxt.data.shared.TreeStore;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,17 +16,17 @@ import java.util.List;
  * Date: 04.02.14
  * //todo написать комментарии
  */
-public class TreeAnswerPresenter implements TreePanelView.Presenter<Topic>  {
+public class TreeAnswerPresenter implements TreePanelView.Presenter<TreeItem>  {
 
-    private TreePanelView<Topic> view;
+    private TreePanelView<TreeItem> view;
 
-    public TreeAnswerPresenter(TreePanelView<Topic> view) {
+    public TreeAnswerPresenter(TreePanelView<TreeItem> view) {
         this.view = view;
         view.setPresenter(this);
     }
 
     @Override
-    public void onEntitySelected(Topic selectedEntity) {
+    public void onEntitySelected(TreeItem selectedEntity) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -35,16 +36,16 @@ public class TreeAnswerPresenter implements TreePanelView.Presenter<Topic>  {
     }
 
     @Override
-    public void removeEntity(Topic selected) {
+    public void removeEntity(TreeItem selected) {
 
     }
 
     @Override
     public void loadRootElements() {
-        RpcService.instance.loadTopics(new Callback<List<Topic>>() {
+        RpcService.instance.loadMenuItems(new Callback<Collection<TreeItem>>() {
             @Override
-            protected void onFinish(List<Topic> result) {
-                view.setRootNodes(result);
+            protected void onFinish(Collection<TreeItem> result) {
+                view.setRootNodes((List<TreeItem>) result);
             }
         });
     }

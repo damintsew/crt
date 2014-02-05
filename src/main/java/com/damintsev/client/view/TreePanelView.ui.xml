@@ -28,7 +28,7 @@
         <container:FlowLayoutContainer>
         <tree:Tree ui:field="tree" width="500px">
         </tree:Tree>
-            <button:ButtonBar>
+            <button:ButtonBar horizontalSpacing="25">
                 <button:TextButton text="Добавить" ui:field="add" />
                 <button:TextButton text="Удалить" ui:field="remove" />
             </button:ButtonBar>

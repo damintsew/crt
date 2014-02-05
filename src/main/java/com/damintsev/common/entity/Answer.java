@@ -83,11 +83,11 @@ public class Answer implements TreeItem {
         this.disabled = disabled;
     }
 
-    public Topic getTopics() {
+    public Topic getTopic() {
         return topic;
     }
 
-    public void setTopics(Topic topics) {
+    public void setTopic(Topic topics) {
         this.topic = topics;
     }
 }

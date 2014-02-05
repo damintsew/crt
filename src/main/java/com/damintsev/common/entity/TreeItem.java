@@ -1,5 +1,6 @@
 package com.damintsev.common.entity;
 
+import com.damintsev.common.utils.Intell;
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.sencha.gxt.data.shared.PropertyAccess;
 
@@ -13,4 +14,5 @@ public interface TreeItem extends IsSerializable{
     Long getId();
 
     String getName();
+
 }

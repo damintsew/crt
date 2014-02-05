@@ -6,7 +6,9 @@ package com.damintsev.server.logic;
  */
 
 import com.damintsev.common.entity.Topic;
+import com.damintsev.common.entity.TreeItem;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -18,5 +20,5 @@ public interface BusinessLayer {
      * Return list of all Topics entities
      * @return
      */
-      List<Topic> getListTopics();
+      Collection<TreeItem> getListTreeItems();
 }

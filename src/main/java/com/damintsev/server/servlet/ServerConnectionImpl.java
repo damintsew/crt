@@ -2,14 +2,12 @@ package com.damintsev.server.servlet;
 
 import com.damintsev.client.service.ServerConnection;
 import com.damintsev.common.entity.Entity;
-import com.damintsev.common.entity.Topic;
+import com.damintsev.common.entity.TreeItem;
 import com.damintsev.server.logic.BusinessLayer;
-import com.sencha.gxt.data.shared.loader.PagingLoadResult;
-import com.sencha.gxt.data.shared.loader.PagingLoadResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -34,7 +32,7 @@ public class ServerConnectionImpl implements ServerConnection {
     }
 
     @Override
-    public List<Topic> loadTopics() {
-        return business.getListTopics();
+    public Collection<TreeItem> loadMenuItems() {
+        return business.getListTreeItems();
     }
 }
