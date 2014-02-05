@@ -32,8 +32,8 @@ public class Answer implements TreeItem {
     private Integer disabled;
 
     @JoinColumn(name = "topics_id")
-    @OneToMany
-    private List<Topic> topics;
+    @ManyToOne
+    private Topic topic;
 
     public Long getId() {
         return id;
@@ -83,11 +83,11 @@ public class Answer implements TreeItem {
         this.disabled = disabled;
     }
 
-    public List<Topic> getTopics() {
-        return topics;
+    public Topic getTopics() {
+        return topic;
     }
 
-    public void setTopics(List<Topic> topics) {
-        this.topics = topics;
+    public void setTopics(Topic topics) {
+        this.topic = topics;
     }
 }

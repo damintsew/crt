@@ -1,5 +1,6 @@
 package com.damintsev.client.view;
 
+import com.damintsev.common.entity.Entity;
 import com.damintsev.common.entity.TreeItem;
 import com.damintsev.common.utils.AvalueProvider;
 import com.damintsev.common.utils.Dialogs;
@@ -38,6 +39,12 @@ public class TreePanelViewImpl<T extends TreeItem> extends Composite implements 
     @UiConstructor
     public TreePanelViewImpl() {
        initWidget(uiBinder.createAndBindUi(this));
+    }
+
+    @Override
+    public void setRootNodes(List<T> rootNodes) {
+        tree.getStore().clear();
+        tree.getStore().add(rootNodes);
     }
 
     @Override

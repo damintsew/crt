@@ -1,5 +1,7 @@
 package com.damintsev.common.entity;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -11,7 +13,7 @@ import javax.persistence.Table;
  */
 @javax.persistence.Entity
 @Table(name = "entities")
-public class Entity {
+public class Entity implements IsSerializable {
 
     @Id
     private Long id;

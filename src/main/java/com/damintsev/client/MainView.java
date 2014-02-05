@@ -5,10 +5,12 @@ import com.damintsev.client.view.TreePanelView;
 import com.damintsev.client.view.TreePanelViewImpl;
 import com.damintsev.client.view.View;
 import com.damintsev.common.entity.Answer;
+import com.damintsev.common.entity.Topic;
 import com.damintsev.common.entity.TreeItem;
 import com.damintsev.common.event.ShowAnswerSectionEvent;
 import com.damintsev.common.event.ShowAnswerSectionHandler;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.Viewport;
@@ -42,18 +44,20 @@ public class MainView {
         footer.setStyleName("footer");
         body.setSouthWidget(footer, new BorderLayoutContainer.BorderLayoutData(20));
 
+        body.setCenterWidget(new ContentPanel());
         RootPanel.get().add(viewport);
 
         EventBus.get().addHandler(ShowAnswerSectionEvent.TYPE, new ShowAnswerSectionHandler() {
             @Override
             public void onShow(ShowAnswerSectionEvent event) {
-                TreePanelView<Answer> treePanelView = null;
-                if((treePanelView = (TreePanelView<Answer>) viewMap.get("answer")) == null) {
-                    treePanelView = new TreePanelViewImpl<Answer>();
+                TreePanelView<Topic> treePanelView = null;
+                if((treePanelView = (TreePanelView<Topic>) viewMap.get("answer")) == null) {
+                    treePanelView = new TreePanelViewImpl<Topic>();
                     viewMap.put("answer", treePanelView);
                 }
-                TreePanelView.Presenter<Answer> presenter = new TreeAnswerPresenter(treePanelView);
-                body.setWestWidget(presenter.asWidget());
+                TreePanelView.Presenter<Topic> presenter = new TreeAnswerPresenter(treePanelView);
+                body.setWestWidget(presenter.asWidget(), new BorderLayoutContainer.BorderLayoutData(250));
+                presenter.loadRootElements();
             }
         });
     }

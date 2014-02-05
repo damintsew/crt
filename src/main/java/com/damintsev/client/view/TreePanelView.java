@@ -1,5 +1,6 @@
 package com.damintsev.client.view;
 
+import com.damintsev.common.entity.Entity;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.List;
@@ -11,11 +12,14 @@ import java.util.List;
  */
 public interface TreePanelView<T> extends View {
 
+    void setRootNodes(List<T> rootNodes);
+
     interface Presenter<T> {
         void onEntitySelected(T selectedEntity);
         void addEntity();
         void removeEntity(T selected);
         Widget asWidget();
+        void loadRootElements();
     }
 
     void setPresenter(Presenter<T> presenter);
