@@ -2,6 +2,7 @@ package com.damintsev.client.view;
 
 import com.damintsev.common.entity.Entity;
 import com.damintsev.common.entity.TreeItem;
+import com.damintsev.common.entity.TreeNode;
 import com.damintsev.common.utils.AvalueProvider;
 import com.damintsev.common.utils.Dialogs;
 import com.damintsev.common.utils.Intell;
@@ -14,6 +15,7 @@ import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
 import com.sencha.gxt.data.shared.TreeStore;
+import com.sencha.gxt.widget.core.client.TabPanel;
 import com.sencha.gxt.widget.core.client.event.FocusEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.ShowEvent;
@@ -26,7 +28,7 @@ import java.util.List;
  * Date: 04.02.14
  * //todo написать комментарии
  */
-public class TreePanelViewImpl<T extends TreeItem> extends Composite implements TreePanelView<T> {
+public class TreePanelViewImpl<T extends TreeItem> implements TreePanelView<T> {
 
     @UiTemplate("TreePanelView.ui.xml")
     interface Binder extends UiBinder<Widget, TreePanelViewImpl> {
@@ -34,20 +36,29 @@ public class TreePanelViewImpl<T extends TreeItem> extends Composite implements 
 
     private static Binder uiBinder = GWT.create(Binder.class);
     private Presenter<T> presenter;
-    private IntelligentTreeStore<TreeItem> store;
 
     @UiField
     Tree<T, String> tree;
+    @UiField
+    TabPanel tabPanel;
 
     @UiConstructor
     public TreePanelViewImpl() {
-       initWidget(uiBinder.createAndBindUi(this));
+       uiBinder.createAndBindUi(this);
     }
 
     @Override
-    public  void setRootNodes(List<T> items) {
+    public  void setRootNodes(List<TreeNode<T>> nodes) {
         tree.getStore().clear();
-        tree.getStore().appendAll(items);
+        for(TreeNode<T> node : nodes) {
+            tree.getStore().add(node.getData());
+            if(node.haveChildren()) {
+                //need to optimize using add(root, List<T>)
+                for(TreeNode<T> child : node.getChildren()) {
+                    tree.getStore().add(node.getData(), child.getData());
+                }
+            }
+        }
     }
 
     @Override
@@ -55,17 +66,17 @@ public class TreePanelViewImpl<T extends TreeItem> extends Composite implements 
         this.presenter = presenter;
     }
 
+    @Override
+    public Widget asWidget() {
+        return tabPanel;
+    }
+
     @UiFactory
-    public Tree<TreeItem, String> createTree() {
-        store = new IntelligentTreeStore<TreeItem>(new ModelKeyProvider<TreeItem>() {
+    public Tree<T, String> createTree() {
+        TreeStore<T> store = new TreeStore<T>(new ModelKeyProvider<T>() {
             @Override
-            public String getKey(TreeItem item) {
+            public String getKey(T item) {
                 return item.getName();
-            }
-        }, new Intell<TreeItem>() {
-            @Override
-            public TreeItem getParent(TreeItem item) {
-                return item.getParent();
             }
         });
         ValueProvider<TreeItem, String> provider = new AvalueProvider<TreeItem, String>("name") {
@@ -74,7 +85,15 @@ public class TreePanelViewImpl<T extends TreeItem> extends Composite implements 
                 return object.getName();
             }
         };
-        return new Tree<TreeItem, String>(store, provider);
+        Tree<T, String> stringTree = new Tree<T, String>(store, provider);
+        stringTree.addFocusHandler(new FocusEvent.FocusHandler() {
+            @Override
+            public void onFocus(FocusEvent event) {
+                presenter.onEntitySelected(tree.getSelectionModel().getSelectedItem());
+            }
+        });
+        return stringTree;
+//        return new Tree<T, String>(store, provider);
     }
 
     @UiHandler("add")
@@ -89,9 +108,9 @@ public class TreePanelViewImpl<T extends TreeItem> extends Composite implements 
         presenter.removeEntity(selected);
     }
 
-    @UiHandler("tree")
-    public void onFocus(FocusEvent event) {
-
-    }
+//    @UiHandler("tree")
+//    public void onFocus(FocusEvent event) {
+//        presenter.onEntitySelected(tree.getSelectionModel().getSelectedItem());
+//    }
 
 }

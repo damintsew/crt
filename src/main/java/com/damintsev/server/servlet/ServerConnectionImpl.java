@@ -3,6 +3,7 @@ package com.damintsev.server.servlet;
 import com.damintsev.client.service.ServerConnection;
 import com.damintsev.common.entity.Entity;
 import com.damintsev.common.entity.TreeItem;
+import com.damintsev.common.entity.TreeNode;
 import com.damintsev.server.logic.BusinessLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class ServerConnectionImpl implements ServerConnection {
     }
 
     @Override
-    public Collection<TreeItem> loadMenuItems() {
+    public List<TreeNode<TreeItem>> loadMenuItems() {
         return business.getListTreeItems();
     }
 }

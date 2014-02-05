@@ -49,7 +49,7 @@ public class MainGWT implements EntryPoint {
             public void onSuccess() {
                 new MainView();
                 SimpleHistoryManager historyManager = new SimpleHistoryManager(EventBus.get());
-                History.fireCurrentHistoryState();
+                History.newItem("answer");
             }
         });
     }

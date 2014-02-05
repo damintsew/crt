@@ -2,6 +2,7 @@ package com.damintsev.client.view;
 
 import com.damintsev.common.entity.Entity;
 import com.damintsev.common.entity.TreeItem;
+import com.damintsev.common.entity.TreeNode;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.data.shared.TreeStore;
 
@@ -22,7 +23,7 @@ public interface TreePanelView<T extends TreeItem> extends View {
         void loadRootElements();
     }
 
-    void setRootNodes(List<T> nodes);
+    void setRootNodes(List<TreeNode<T>> nodes);
     void setPresenter(Presenter<T> presenter);
     Widget asWidget();
 }

@@ -43,10 +43,11 @@ public class SimpleHistoryManager implements ValueChangeHandler<String> {
      * @param token
      */
     private void onTokenChanged(String token) {
-        if (token.startsWith("/answer") || token.equals("")) {
+        System.out.println("topen=" + token);
+        if (token.startsWith("answer") || token.equals("")) {
             Long id = parseId(token);
             handlerManager.fireEvent(new ShowAnswerSectionEvent(id));
-        } else if (token.startsWith("/entity")) {
+        } else if (token.startsWith("entity")) {
             showEntitySection();
         }
     }
@@ -59,7 +60,7 @@ public class SimpleHistoryManager implements ValueChangeHandler<String> {
     private Long parseId(String token) {
         String []array = token.split("/");
         if(array.length == 2)
-            return Long.valueOf(array[2]);
+            return Long.valueOf(array[1]);
         return null;
     }
 

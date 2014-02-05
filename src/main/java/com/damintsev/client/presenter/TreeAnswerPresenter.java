@@ -5,6 +5,8 @@ import com.damintsev.client.view.TreePanelView;
 import com.damintsev.common.Callback;
 import com.damintsev.common.entity.Topic;
 import com.damintsev.common.entity.TreeItem;
+import com.damintsev.common.entity.TreeNode;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.data.shared.TreeStore;
 
@@ -27,7 +29,7 @@ public class TreeAnswerPresenter implements TreePanelView.Presenter<TreeItem>  {
 
     @Override
     public void onEntitySelected(TreeItem selectedEntity) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        History.newItem(History.getToken() + "/" + selectedEntity.getId().toString());
     }
 
     @Override
@@ -42,10 +44,10 @@ public class TreeAnswerPresenter implements TreePanelView.Presenter<TreeItem>  {
 
     @Override
     public void loadRootElements() {
-        RpcService.instance.loadMenuItems(new Callback<Collection<TreeItem>>() {
+        RpcService.instance.loadMenuItems(new Callback<List<TreeNode<TreeItem>>>() {
             @Override
-            protected void onFinish(Collection<TreeItem> result) {
-                view.setRootNodes((List<TreeItem>) result);
+            protected void onFinish(List<TreeNode<TreeItem>> result) {
+                view.setRootNodes(result);
             }
         });
     }

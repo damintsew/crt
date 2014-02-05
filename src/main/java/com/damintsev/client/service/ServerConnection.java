@@ -2,6 +2,7 @@ package com.damintsev.client.service;
 
 import com.damintsev.common.entity.Entity;
 import com.damintsev.common.entity.TreeItem;
+import com.damintsev.common.entity.TreeNode;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -20,5 +21,5 @@ public interface ServerConnection extends RemoteService {
 
     List<Entity> loadEntities();
 
-    Collection<TreeItem> loadMenuItems();
+    List<TreeNode<TreeItem>> loadMenuItems();
 }

@@ -3,6 +3,7 @@ package com.damintsev.server.logic.impl;
 import com.damintsev.common.entity.Answer;
 import com.damintsev.common.entity.Topic;
 import com.damintsev.common.entity.TreeItem;
+import com.damintsev.common.entity.TreeNode;
 import com.damintsev.server.dao.AnswerDao;
 import com.damintsev.server.dao.TopicDao;
 import com.damintsev.server.logic.BusinessLayer;
@@ -32,10 +33,19 @@ public class BusinessLayerImpl implements BusinessLayer {
      * {@inheritDoc}
      */
     @Override
-    public Collection<TreeItem> getListTreeItems() {
-        List<TreeItem> items = new ArrayList<>();
-        items.addAll(topicDao.getListTopic());
-        items.addAll(answerDao.getListAnswer());
-        return items;
+    public List<TreeNode<TreeItem>> getListTreeItems() {
+        Map<Long, TreeNode<TreeItem>> nodeMap = new HashMap<>();
+        for(Topic topic : topicDao.getListTopic()) {
+            nodeMap.put(topic.getId(), new TreeNode<TreeItem>(topic));
+        }
+        for(Answer answer : answerDao.getListAnswer()) {
+            TreeNode<TreeItem> item = nodeMap.get(answer.getTopic().getId());
+            if(item == null) {
+                item = new TreeNode<TreeItem>(answer.getTopic());
+                nodeMap.put(answer.getTopic().getId(), item);
+            }
+            item.appendChildren(new TreeNode<TreeItem>(answer));
+        }
+        return new ArrayList<TreeNode<TreeItem>>(nodeMap.values());
     }
 }
