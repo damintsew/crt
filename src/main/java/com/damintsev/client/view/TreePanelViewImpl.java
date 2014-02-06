@@ -8,6 +8,8 @@ import com.damintsev.common.utils.Dialogs;
 import com.damintsev.common.utils.Intell;
 import com.damintsev.common.utils.IntelligentTreeStore;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.uibinder.client.*;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
@@ -16,6 +18,7 @@ import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
 import com.sencha.gxt.data.shared.TreeStore;
 import com.sencha.gxt.widget.core.client.TabPanel;
+import com.sencha.gxt.widget.core.client.event.ExpandItemEvent;
 import com.sencha.gxt.widget.core.client.event.FocusEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.ShowEvent;
@@ -42,7 +45,6 @@ public class TreePanelViewImpl<T extends TreeItem> implements TreePanelView<T> {
     @UiField
     TabPanel tabPanel;
 
-    @UiConstructor
     public TreePanelViewImpl() {
        uiBinder.createAndBindUi(this);
     }
@@ -85,15 +87,22 @@ public class TreePanelViewImpl<T extends TreeItem> implements TreePanelView<T> {
                 return object.getName();
             }
         };
-        Tree<T, String> stringTree = new Tree<T, String>(store, provider);
-        stringTree.addFocusHandler(new FocusEvent.FocusHandler() {
+        final Tree<T, String> stringTree = new Tree<T, String>(store, provider);
+        stringTree.getSelectionModel().addSelectionHandler(new SelectionHandler<T>() {
             @Override
-            public void onFocus(FocusEvent event) {
-                presenter.onEntitySelected(tree.getSelectionModel().getSelectedItem());
+            public void onSelection(SelectionEvent<T> event) {
+                presenter.onEntitySelected(event.getSelectedItem());
             }
         });
+        stringTree.addShowHandler(new ShowEvent.ShowHandler() {
+            @Override
+            public void onShow(ShowEvent event) {
+                System.out.println("onShow");
+                stringTree.expandAll();
+            }
+        });
+
         return stringTree;
-//        return new Tree<T, String>(store, provider);
     }
 
     @UiHandler("add")

@@ -1,9 +1,8 @@
 package com.damintsev.client;
 
+import com.damintsev.client.presenter.AnswerFormPresenter;
 import com.damintsev.client.presenter.TreeAnswerPresenter;
-import com.damintsev.client.view.TreePanelView;
-import com.damintsev.client.view.TreePanelViewImpl;
-import com.damintsev.client.view.View;
+import com.damintsev.client.view.*;
 import com.damintsev.common.entity.Answer;
 import com.damintsev.common.entity.Topic;
 import com.damintsev.common.entity.TreeItem;
@@ -35,16 +34,13 @@ public class MainView {
         body = new BorderLayoutContainer();
         viewport.add(body);
 
-        FlowLayoutContainer header = new FlowLayoutContainer();
-        header.setHeight(20);
-        body.setNorthWidget(header, new BorderLayoutContainer.BorderLayoutData(20));
 
         FlowLayoutContainer footer = new FlowLayoutContainer();
         footer.setHeight(20);
         footer.setStyleName("footer");
         body.setSouthWidget(footer, new BorderLayoutContainer.BorderLayoutData(20));
 
-        body.setCenterWidget(new ContentPanel());
+//        body.setCenterWidget(new ContentPanel());
         RootPanel.get().add(viewport);
 
         EventBus.get().addHandler(ShowAnswerSectionEvent.TYPE, new ShowAnswerSectionHandler() {
@@ -57,7 +53,17 @@ public class MainView {
                 }
                 TreePanelView.Presenter<TreeItem> presenter = new TreeAnswerPresenter(treePanelView);
                 body.setWestWidget(presenter.asWidget(), new BorderLayoutContainer.BorderLayoutData(250));
-                presenter.loadRootElements();
+                if(!presenter.isContentLoaded())
+                    presenter.loadRootElements();
+
+                AnswerFormView answerFormView;
+                if((answerFormView = (AnswerFormView) viewMap.get("answerFormView")) == null) {
+                    answerFormView = new AnswerFormViewImpl();
+                    viewMap.put("answerFormView", answerFormView);
+                }
+                AnswerFormView.Presenter answerPresenter = new AnswerFormPresenter(answerFormView);
+                body.setCenterWidget(answerPresenter.asWidget());
+
             }
         });
     }
