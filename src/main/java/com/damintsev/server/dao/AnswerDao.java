@@ -20,4 +20,6 @@ public interface AnswerDao {
      * @return
      */
     List<Answer> getListAnswer();
+
+    Answer getById(Object id);
 }

@@ -1,5 +1,6 @@
 package com.damintsev.client.view;
 
+import com.damintsev.client.presenter.Presenter;
 import com.damintsev.common.entity.Entity;
 import com.damintsev.common.entity.TreeItem;
 import com.damintsev.common.entity.TreeNode;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public interface TreePanelView<T extends TreeItem> extends View {
 
-    interface Presenter<T> {
+    interface Presenter<T> extends com.damintsev.client.presenter.Presenter {
         void onEntitySelected(T selectedEntity);
         void addEntity();
         void removeEntity(T selected);

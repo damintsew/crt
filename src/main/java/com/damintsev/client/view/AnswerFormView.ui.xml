@@ -10,168 +10,154 @@
             margin-left: 120px;
         }
 
-        .white_bg{
+        .white_bg {
             background: white;
         }
     </ui:style>
 
-    <ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData" field="verticalLayoutData">
-        <ui:attributes width="1" height="-1" />
+    <ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData"
+             field="verticalLayoutData">
+        <ui:attributes width="1" height="-1"/>
     </ui:with>
     <ui:with type="com.sencha.gxt.widget.core.client.TabItemConfig" field="normalTabConfig">
-        <ui:attributes text="Normal" />
+        <ui:attributes text="Normal"/>
     </ui:with>
 
     <gxt:ContentPanel ui:field="contentPanel" resize="false">
         <g:VerticalPanel spacing="15">
-                <container:VerticalLayoutContainer width="700" >
-                    <container:child>
-                        <form:FieldLabel text="Типовой вопрос" width="300px">
-                            <form:widget>
-                                <form:TextField ui:field="typeQuestion" allowBlank="false" emptyText="..."/>
-                            </form:widget>
-                        </form:FieldLabel>
-                    </container:child>
+            <container:VerticalLayoutContainer width="700">
+                <container:child>
+                    <form:FieldLabel text="Типовой вопрос" width="300px">
+                        <form:widget>
+                            <form:TextField ui:field="typeQuestion" allowBlank="false" emptyText="..."/>
+                        </form:widget>
+                    </form:FieldLabel>
+                </container:child>
 
-                    <container:child>
-                        <form:FieldLabel text="Текст ответа">
-                            <form:widget>
-                                <form:TextArea ui:field="answerText" allowBlank="false" height="170" width="400" />
-                            </form:widget>
-                        </form:FieldLabel>
-                    </container:child>
-
-
-                    <container:child>
-                            <button:ButtonBar horizontalSpacing="50" width="400" styleName="{style.centerMargin}">
-                                <button:TextButton text="Короткая пауза" ui:field="shortPause"/>
-                                <button:TextButton text="Длинная пауза" ui:field="longPause"/>
-                                <button:TextButton text="Синтез" ui:field="syntheses"/>
-                            </button:ButtonBar>
-                    </container:child>
-
-                    <!--<container:child>-->
-                        <!--<gxt:TabPanel bodyBorder="false" styleName="{style.white_bg}">-->
-                            <!--<gxt:child config="{normalTabConfig}">-->
-                                <!--<g:VerticalPanel>-->
-                                    <!--<container:VerticalLayoutContainer>-->
-                                        <!--<button:TextButton text="Синтез"/>-->
-                                    <!--</container:VerticalLayoutContainer>-->
-                                <!--</g:VerticalPanel>-->
-                            <!--</gxt:child>-->
-                        <!--</gxt:TabPanel>-->
-                    <!--</container:child>-->
-                    <container:child>
-                        <gxt:ContentPanel headerVisible="false">
-                            <g:VerticalPanel>
+                <container:child>
+                    <form:FieldLabel text="Текст ответа">
+                        <form:widget>
+                            <form:TextArea ui:field="answerText" allowBlank="false" height="170" width="400"/>
+                        </form:widget>
+                    </form:FieldLabel>
+                </container:child>
+                <container:child>
+                    <button:ButtonBar horizontalSpacing="50" width="400" styleName="{style.centerMargin}">
+                        <button:TextButton text="Короткая пауза" ui:field="shortPause"/>
+                        <button:TextButton text="Длинная пауза" ui:field="longPause"/>
+                        <button:TextButton text="Синтез" ui:field="syntheses"/>
+                    </button:ButtonBar>
+                </container:child>
+                <container:child>
+                    <gxt:ContentPanel headerVisible="false">
+                        <g:VerticalPanel>
                             <container:VerticalLayoutContainer>
                                 <container:child>
                                     <form:FieldLabel text="Семантика" styleName="tooltip" labelSeparator=""/>
                                 </container:child>
-                                                    <container:child>
-                                                        <button:TextButton text="Синтез"/>
-                                                    </container:child>
-
+                                <container:child>
+                                    <button:TextButton text="Синтез"/>
+                                </container:child>
                             </container:VerticalLayoutContainer>
-                            </g:VerticalPanel>
-                        </gxt:ContentPanel>
-                    </container:child>
-                    <!--<container:child layoutData="{verticalLayoutData}">-->
-                        <!--<form:FieldLabel text="Password">-->
-                            <!--<form:widget>-->
-                                <!--<form:PasswordField ui:field="password" />-->
-                            <!--</form:widget>-->
-                        <!--</form:FieldLabel>-->
-                    <!--</container:child>-->
+                        </g:VerticalPanel>
+                    </gxt:ContentPanel>
+                </container:child>
+                <!--<container:child layoutData="{verticalLayoutData}">-->
+                <!--<form:FieldLabel text="Password">-->
+                <!--<form:widget>-->
+                <!--<form:PasswordField ui:field="password" />-->
+                <!--</form:widget>-->
+                <!--</form:FieldLabel>-->
+                <!--</container:child>-->
 
-                    <!--<container:child layoutData="{verticalLayoutData}">-->
-                        <!--<form:FieldLabel text="Age">-->
-                            <!--<form:widget>-->
-                                <!--<form:NumberField ui:field="age" allowBlank="false" />-->
-                            <!--</form:widget>-->
-                        <!--</form:FieldLabel>-->
-                    <!--</container:child>-->
+                <!--<container:child layoutData="{verticalLayoutData}">-->
+                <!--<form:FieldLabel text="Age">-->
+                <!--<form:widget>-->
+                <!--<form:NumberField ui:field="age" allowBlank="false" />-->
+                <!--</form:widget>-->
+                <!--</form:FieldLabel>-->
+                <!--</container:child>-->
 
-                    <!--<container:child layoutData="{verticalLayoutData}">-->
-                        <!--<form:FieldLabel text="Company">-->
-                            <!--<form:widget>-->
-                                <!--<form:ComboBox ui:field="combo" allowBlank="true" forceSelection="true" triggerAction="ALL" />-->
-                            <!--</form:widget>-->
-                        <!--</form:FieldLabel>-->
-                    <!--</container:child>-->
+                <!--<container:child layoutData="{verticalLayoutData}">-->
+                <!--<form:FieldLabel text="Company">-->
+                <!--<form:widget>-->
+                <!--<form:ComboBox ui:field="combo" allowBlank="true" forceSelection="true" triggerAction="ALL" />-->
+                <!--</form:widget>-->
+                <!--</form:FieldLabel>-->
+                <!--</container:child>-->
 
-                    <!--<container:child layoutData="{verticalLayoutData}">-->
-                        <!--<form:FieldLabel text="Birthday">-->
-                            <!--<form:widget>-->
-                                <!--<form:DateField ui:field="date" />-->
-                            <!--</form:widget>-->
-                        <!--</form:FieldLabel>-->
-                    <!--</container:child>-->
+                <!--<container:child layoutData="{verticalLayoutData}">-->
+                <!--<form:FieldLabel text="Birthday">-->
+                <!--<form:widget>-->
+                <!--<form:DateField ui:field="date" />-->
+                <!--</form:widget>-->
+                <!--</form:FieldLabel>-->
+                <!--</container:child>-->
 
-                    <!--<container:child layoutData="{verticalLayoutData}">-->
-                        <!--<form:FieldLabel text="Time">-->
-                            <!--<form:widget>-->
-                                <!--<form:TimeField ui:field="time" minValue="{minValue}" maxValue="{maxValue}" />-->
-                            <!--</form:widget>-->
-                        <!--</form:FieldLabel>-->
-                    <!--</container:child>-->
+                <!--<container:child layoutData="{verticalLayoutData}">-->
+                <!--<form:FieldLabel text="Time">-->
+                <!--<form:widget>-->
+                <!--<form:TimeField ui:field="time" minValue="{minValue}" maxValue="{maxValue}" />-->
+                <!--</form:widget>-->
+                <!--</form:FieldLabel>-->
+                <!--</container:child>-->
 
-                    <!--<container:child layoutData="{verticalLayoutData}">-->
-                        <!--<form:FieldLabel text="Size">-->
-                            <!--<form:widget>-->
-                                <!--<c:Slider minValue="40" maxValue="90" value="0" increment="5" message="{0} inches tall" />-->
-                            <!--</form:widget>-->
-                        <!--</form:FieldLabel>-->
-                    <!--</container:child>-->
+                <!--<container:child layoutData="{verticalLayoutData}">-->
+                <!--<form:FieldLabel text="Size">-->
+                <!--<form:widget>-->
+                <!--<c:Slider minValue="40" maxValue="90" value="0" increment="5" message="{0} inches tall" />-->
+                <!--</form:widget>-->
+                <!--</form:FieldLabel>-->
+                <!--</container:child>-->
 
-                    <!--<container:child layoutData="{verticalLayoutData}">-->
-                        <!--<form:FieldLabel text="Music">-->
-                            <!--<form:widget>-->
-                                <!--<g:HorizontalPanel>-->
-                                    <!--<form:CheckBox ui:field="check1" boxLabel="Classical" />-->
-                                    <!--<form:CheckBox ui:field="check2" boxLabel="Rock" value="true" />-->
-                                    <!--<form:CheckBox ui:field="check3" boxLabel="Blues" />-->
-                                <!--</g:HorizontalPanel>-->
-                            <!--</form:widget>-->
-                        <!--</form:FieldLabel>-->
-                    <!--</container:child>-->
-
-
-                    <!--<container:child layoutData="{verticalLayoutData}">-->
-                        <!--<form:FieldLabel text="Color">-->
-                            <!--<form:widget>-->
-                                <!--<g:HorizontalPanel>-->
-                                    <!--<form:Radio ui:field="radio" boxLabel="Red" />-->
-                                    <!--<form:Radio ui:field="radio2" boxLabel="Blue" value="true" />-->
-                                <!--</g:HorizontalPanel>-->
-                            <!--</form:widget>-->
-                        <!--</form:FieldLabel>-->
-                    <!--</container:child>-->
+                <!--<container:child layoutData="{verticalLayoutData}">-->
+                <!--<form:FieldLabel text="Music">-->
+                <!--<form:widget>-->
+                <!--<g:HorizontalPanel>-->
+                <!--<form:CheckBox ui:field="check1" boxLabel="Classical" />-->
+                <!--<form:CheckBox ui:field="check2" boxLabel="Rock" value="true" />-->
+                <!--<form:CheckBox ui:field="check3" boxLabel="Blues" />-->
+                <!--</g:HorizontalPanel>-->
+                <!--</form:widget>-->
+                <!--</form:FieldLabel>-->
+                <!--</container:child>-->
 
 
-                    <!--<container:child layoutData="{descriptionLayoutData}">-->
-                        <!--<form:FieldLabel text="Description">-->
-                            <!--<form:widget>-->
-                                <!--<form:TextArea ui:field="description" preventScrollbars="true" />-->
-                            <!--</form:widget>-->
-                        <!--</form:FieldLabel>-->
-                    <!--</container:child>-->
+                <!--<container:child layoutData="{verticalLayoutData}">-->
+                <!--<form:FieldLabel text="Color">-->
+                <!--<form:widget>-->
+                <!--<g:HorizontalPanel>-->
+                <!--<form:Radio ui:field="radio" boxLabel="Red" />-->
+                <!--<form:Radio ui:field="radio2" boxLabel="Blue" value="true" />-->
+                <!--</g:HorizontalPanel>-->
+                <!--</form:widget>-->
+                <!--</form:FieldLabel>-->
+                <!--</container:child>-->
 
-                    <!--<container:child layoutData="{verticalLayoutData}">-->
-                        <!--<form:FieldLabel text="Duration(s)">-->
-                            <!--<form:widget>-->
-                                <!--<form:SpinnerField ui:field="spinnerField" />-->
-                            <!--</form:widget>-->
-                        <!--</form:FieldLabel>-->
-                    <!--</container:child>-->
-                </container:VerticalLayoutContainer>
 
-                <!--<c:button>-->
-                    <!--<button:TextButton text="Save" />-->
-                <!--</c:button>-->
-                <!--<c:button>-->
-                    <!--<button:TextButton text="Cancel" />-->
-                <!--</c:button>-->
+                <!--<container:child layoutData="{descriptionLayoutData}">-->
+                <!--<form:FieldLabel text="Description">-->
+                <!--<form:widget>-->
+                <!--<form:TextArea ui:field="description" preventScrollbars="true" />-->
+                <!--</form:widget>-->
+                <!--</form:FieldLabel>-->
+                <!--</container:child>-->
+
+                <!--<container:child layoutData="{verticalLayoutData}">-->
+                <!--<form:FieldLabel text="Duration(s)">-->
+                <!--<form:widget>-->
+                <!--<form:SpinnerField ui:field="spinnerField" />-->
+                <!--</form:widget>-->
+                <!--</form:FieldLabel>-->
+                <!--</container:child>-->
+            </container:VerticalLayoutContainer>
+
+            <!--<c:button>-->
+            <!--<button:TextButton text="Save" />-->
+            <!--</c:button>-->
+            <!--<c:button>-->
+            <!--<button:TextButton text="Cancel" />-->
+            <!--</c:button>-->
 
         </g:VerticalPanel>
     </gxt:ContentPanel>

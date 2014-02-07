@@ -13,6 +13,8 @@ public interface TreeItem extends IsSerializable{
 
     Long getId();
 
+    String getStringId();
+
     String getName();
 
 }

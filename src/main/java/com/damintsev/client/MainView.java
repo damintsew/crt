@@ -1,6 +1,7 @@
 package com.damintsev.client;
 
 import com.damintsev.client.presenter.AnswerFormPresenter;
+import com.damintsev.client.presenter.Presenter;
 import com.damintsev.client.presenter.TreeAnswerPresenter;
 import com.damintsev.client.view.*;
 import com.damintsev.common.entity.Answer;
@@ -24,6 +25,8 @@ public class MainView {
 
     private HashMap<String, View> viewMap;
     private BorderLayoutContainer body;
+    private TreePanelView.Presenter<TreeItem> menuPresenter;
+    private AnswerFormView.Presenter centerPresenter;
 
     public MainView() {
         viewMap = new HashMap<String, View>();
@@ -51,18 +54,25 @@ public class MainView {
                     treePanelView = new TreePanelViewImpl<TreeItem>();
                     viewMap.put("answer", treePanelView);
                 }
-                TreePanelView.Presenter<TreeItem> presenter = new TreeAnswerPresenter(treePanelView);
-                body.setWestWidget(presenter.asWidget(), new BorderLayoutContainer.BorderLayoutData(250));
-                if(!presenter.isContentLoaded())
-                    presenter.loadRootElements();
+                if (menuPresenter == null) {
+                    menuPresenter = new TreeAnswerPresenter(treePanelView);
+                    body.setWestWidget(menuPresenter.asWidget(), new BorderLayoutContainer.BorderLayoutData(250));
+                    if (!menuPresenter.isContentLoaded()) {
+                        menuPresenter.loadRootElements();
+                    }
+                }
 
                 AnswerFormView answerFormView;
-                if((answerFormView = (AnswerFormView) viewMap.get("answerFormView")) == null) {
+                if ((answerFormView = (AnswerFormView) viewMap.get("answerFormView")) == null) {
                     answerFormView = new AnswerFormViewImpl();
                     viewMap.put("answerFormView", answerFormView);
                 }
-                AnswerFormView.Presenter answerPresenter = new AnswerFormPresenter(answerFormView);
-                body.setCenterWidget(answerPresenter.asWidget());
+                if(centerPresenter == null) {
+                    centerPresenter = new AnswerFormPresenter(answerFormView);
+                    body.setCenterWidget(centerPresenter.asWidget());
+                }
+                centerPresenter.loadEntity(event.getAnswerId());
+
 
             }
         });

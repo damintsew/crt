@@ -16,7 +16,7 @@ import java.util.List;
  * Date: 04.02.14
  * //todo написать комментарии
  */
-public class TreeAnswerPresenter implements TreePanelView.Presenter<TreeItem>  {
+public class TreeAnswerPresenter implements TreePanelView.Presenter<TreeItem> {
 
     private static final String BASE_URL = "answer/";
     private TreePanelView<TreeItem> view;
@@ -61,6 +61,6 @@ public class TreeAnswerPresenter implements TreePanelView.Presenter<TreeItem>  {
 
     @Override
     public boolean isContentLoaded() {
-        return contentLoaded;  //To change body of implemented methods use File | Settings | File Templates.
+        return contentLoaded;
     }
 }

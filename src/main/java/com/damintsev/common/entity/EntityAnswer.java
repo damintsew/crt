@@ -1,5 +1,7 @@
 package com.damintsev.common.entity;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import javax.persistence.*;
 
 /**
@@ -8,17 +10,19 @@ import javax.persistence.*;
  * //todo написать комментарии
  */
 @javax.persistence.Entity
-@Table(name = "entities_answer")
-public class EntityAnswer {
+@Table(name = "entities_answers")
+public class EntityAnswer implements IsSerializable {
 
     @Id
     private Long id;
 
-    @JoinColumn
+    @JoinColumn(name = "answer_id")
+//    @ManyToMany
     @OneToOne
     private Answer answer;
 
-    @JoinColumn
+    @JoinColumn(name = "entity_id")
+//    @ManyToMany
     @OneToOne
     private Entity entity;
 

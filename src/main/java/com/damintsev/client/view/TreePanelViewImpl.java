@@ -24,6 +24,7 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.ShowEvent;
 import com.sencha.gxt.widget.core.client.tree.Tree;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,15 +51,17 @@ public class TreePanelViewImpl<T extends TreeItem> implements TreePanelView<T> {
     }
 
     @Override
-    public  void setRootNodes(List<TreeNode<T>> nodes) {
+    public void setRootNodes(List<TreeNode<T>> nodes) {
         tree.getStore().clear();
-        for(TreeNode<T> node : nodes) {
+        for (TreeNode<T> node : nodes) {
             tree.getStore().add(node.getData());
-            if(node.haveChildren()) {
+            if (node.haveChildren()) {
                 //need to optimize using add(root, List<T>)
-                for(TreeNode<T> child : node.getChildren()) {
-                    tree.getStore().add(node.getData(), child.getData());
+                List<T> childs = new ArrayList<T>();
+                for (TreeNode<T> child : node.getChildren()) {
+                    childs.add(child.getData());
                 }
+                tree.getStore().add(node.getData(), childs);
             }
         }
     }
@@ -78,7 +81,7 @@ public class TreePanelViewImpl<T extends TreeItem> implements TreePanelView<T> {
         TreeStore<T> store = new TreeStore<T>(new ModelKeyProvider<T>() {
             @Override
             public String getKey(T item) {
-                return item.getName();
+                return item.getStringId();
             }
         });
         ValueProvider<TreeItem, String> provider = new AvalueProvider<TreeItem, String>("name") {

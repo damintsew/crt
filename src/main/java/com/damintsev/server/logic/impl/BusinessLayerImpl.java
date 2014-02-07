@@ -1,10 +1,8 @@
 package com.damintsev.server.logic.impl;
 
-import com.damintsev.common.entity.Answer;
-import com.damintsev.common.entity.Topic;
-import com.damintsev.common.entity.TreeItem;
-import com.damintsev.common.entity.TreeNode;
+import com.damintsev.common.entity.*;
 import com.damintsev.server.dao.AnswerDao;
+import com.damintsev.server.dao.EntityDao;
 import com.damintsev.server.dao.TopicDao;
 import com.damintsev.server.logic.BusinessLayer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +27,9 @@ public class BusinessLayerImpl implements BusinessLayer {
     @Autowired
     private AnswerDao answerDao;
 
+    @Autowired
+    private EntityDao entityDao;
+
     /**
      * {@inheritDoc}
      */
@@ -47,5 +48,18 @@ public class BusinessLayerImpl implements BusinessLayer {
             item.appendChildren(new TreeNode<TreeItem>(answer));
         }
         return new ArrayList<TreeNode<TreeItem>>(nodeMap.values());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Answer getAnswerById(Long answerId) {
+        return answerDao.getById(answerId);
+    }
+
+    @Override
+    public List<EntityAnswer> getEntitiesByAnswerId(Long asnwerId) {
+        return entityDao.getEntitiesByAnswerId(asnwerId);
     }
 }

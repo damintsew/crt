@@ -14,10 +14,15 @@ import java.util.List;
  * //todo написать комментарии
  */
 @Component
-public class AnswerDaoImpl implements AnswerDao {
+public class AnswerDaoImpl extends DomainDaoImpl<Answer> implements AnswerDao {
 
     @PersistenceContext
     private EntityManager em;
+
+
+    public AnswerDaoImpl() {
+        super(Answer.class);
+    }
 
     /**
      * {@inheritDoc}

@@ -5,9 +5,7 @@ package com.damintsev.server.logic;
  * Date: 05.02.14
  */
 
-import com.damintsev.common.entity.Topic;
-import com.damintsev.common.entity.TreeItem;
-import com.damintsev.common.entity.TreeNode;
+import com.damintsev.common.entity.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -22,4 +20,13 @@ public interface BusinessLayer {
      * @return
      */
     List<TreeNode<TreeItem>> getListTreeItems();
+
+    /**
+     * Return Ansewr entity bi his Id
+     * @param asnwerId
+     * @return
+     */
+    Answer getAnswerById(Long asnwerId);
+
+    List<EntityAnswer> getEntitiesByAnswerId(Long asnwerId);
 }

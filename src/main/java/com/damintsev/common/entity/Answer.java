@@ -9,7 +9,7 @@ import java.util.List;
  *         04.02.14.
  */
 @Entity
-@Table(name = "answer")
+@Table(name = "answers")
 public class Answer implements TreeItem {
 
     @Id
@@ -31,7 +31,7 @@ public class Answer implements TreeItem {
     @Column(name = "disabled")
     private Integer disabled;
 
-    @JoinColumn(name = "topics_id")
+    @JoinColumn(name = "topic_id")
     @ManyToOne
     private Topic topic;
 
@@ -89,5 +89,10 @@ public class Answer implements TreeItem {
 
     public void setTopic(Topic topics) {
         this.topic = topics;
+    }
+
+    @Override
+    public String getStringId() {
+        return this.getClass().getName() + id;
     }
 }

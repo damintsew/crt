@@ -35,4 +35,9 @@ public class Topic implements TreeItem {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String getStringId() {
+        return this.getClass().getName() + id;
+    }
 }
