@@ -2,9 +2,8 @@ package com.damintsev.common.entity;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * User: adamintsev
@@ -23,6 +22,9 @@ public class Entity implements IsSerializable {
 
     @Column(name = "title", length = 40)
     private String title;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "entities")
+    private List<Answer> answers;
 
     public Long getId() {
         return id;
@@ -46,5 +48,13 @@ public class Entity implements IsSerializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 }

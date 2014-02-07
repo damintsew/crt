@@ -1,14 +1,13 @@
 package com.damintsev.common.entity;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.util.List;
 
 /**
  * @author Damintsev Andrey
  *         04.02.14.
  */
-@Entity
+@javax.persistence.Entity
 @Table(name = "answers")
 public class Answer implements TreeItem {
 
@@ -34,6 +33,12 @@ public class Answer implements TreeItem {
     @JoinColumn(name = "topic_id")
     @ManyToOne
     private Topic topic;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "entities_answers",
+        joinColumns = {@JoinColumn(name = "answer_id", nullable = false)},
+        inverseJoinColumns = {@JoinColumn(name = "entity_id", nullable = false)})
+    private List<Entity> entities;
 
     public Long getId() {
         return id;
@@ -94,5 +99,13 @@ public class Answer implements TreeItem {
     @Override
     public String getStringId() {
         return this.getClass().getName() + id;
+    }
+
+    public List<Entity> getEntities() {
+        return entities;
+    }
+
+    public void setEntities(List<Entity> entities) {
+        this.entities = entities;
     }
 }
