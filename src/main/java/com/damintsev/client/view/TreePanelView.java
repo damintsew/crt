@@ -1,11 +1,8 @@
 package com.damintsev.client.view;
 
-import com.damintsev.client.presenter.Presenter;
-import com.damintsev.common.entity.Entity;
 import com.damintsev.common.entity.TreeItem;
 import com.damintsev.common.entity.TreeNode;
 import com.google.gwt.user.client.ui.Widget;
-import com.sencha.gxt.data.shared.TreeStore;
 
 import java.util.List;
 

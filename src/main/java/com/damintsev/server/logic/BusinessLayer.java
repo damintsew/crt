@@ -7,7 +7,6 @@ package com.damintsev.server.logic;
 
 import com.damintsev.common.entity.*;
 
-import java.util.Collection;
 import java.util.List;
 
 /**

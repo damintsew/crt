@@ -1,46 +1,21 @@
-package com.damintsev.common.entity;
+package com.damintsev.client.entity;
 
-import com.google.gwt.user.client.rpc.GwtTransient;
-
-import javax.persistence.*;
 import java.util.List;
 
 /**
  * @author Damintsev Andrey
  *         04.02.14.
  */
-@javax.persistence.Entity
-@Table(name = "answers")
-public class Answer implements TreeItem {
+public class UiAnswer implements TreeItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(name = "name", length = 100)
     private String name;
-
-    @Column(name = "question", length = 400)
     private String question;
-
-    @Column(name = "answer")
     private String answer;
-
-    @Column(name = "priority")
     private Float priority;
-
-    @Column(name = "disabled")
     private Integer disabled;
-
-    @JoinColumn(name = "topic_id")
-    @ManyToOne
     private Topic topic;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "entities_answers",
-        joinColumns = {@JoinColumn(name = "answer_id", nullable = false)},
-        inverseJoinColumns = {@JoinColumn(name = "entity_id", nullable = false)})
-    private List<Entity> entities;
+    private List<UiEntity> entities;
 
     public Long getId() {
         return id;
@@ -103,12 +78,12 @@ public class Answer implements TreeItem {
         return this.getClass().getName() + id;
     }
 
-    public List<Entity> getEntities() {
+    public List<UiEntity> getEntities() {
 //        if (!Hibernate.isInitialized(entities)) return null;
         return entities;
     }
 
-    public void setEntities(List<Entity> entities) {
+    public void setEntities(List<UiEntity> entities) {
         this.entities = entities;
     }
 }

@@ -2,7 +2,9 @@ package com.damintsev.client.view;
 
 import com.damintsev.client.presenter.AnswerFormPresenter;
 import com.damintsev.common.entity.Answer;
+import com.damintsev.common.entity.Entity;
 import com.damintsev.common.entity.EntityAnswer;
+import com.damintsev.common.utils.Dialogs;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -63,5 +65,10 @@ public class AnswerFormViewImpl implements AnswerFormView {
         setPanelHeader(answer.getName());
         answerText.setValue(answer.getName());
         typeQuestion.setValue(answer.getQuestion());
+        setEntities(answer.getEntities());
+    }
+
+    public void setEntities(List<Entity> entity) {
+        Dialogs.alert("asd=" + entity.size());
     }
 }

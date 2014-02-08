@@ -4,10 +4,7 @@ import com.damintsev.client.service.RpcService;
 import com.damintsev.client.view.AnswerFormView;
 import com.damintsev.common.Callback;
 import com.damintsev.common.entity.Answer;
-import com.damintsev.common.entity.EntityAnswer;
 import com.google.gwt.user.client.ui.IsWidget;
-
-import java.util.List;
 
 /**
  * User: adamintsev
@@ -35,12 +32,6 @@ public class AnswerFormPresenter implements AnswerFormView.Presenter, Presenter{
             @Override
             protected void onFinish(Answer result) {
                 answerFormView.setAnswer(result);
-            }
-        });
-        RpcService.instance.loadEntitiesByAnswerId(answerId, new Callback<List<EntityAnswer>>() {
-            @Override
-            protected void onFinish(List<EntityAnswer> result) {
-                answerFormView.setEntitiesAnswer(result);
             }
         });
     }

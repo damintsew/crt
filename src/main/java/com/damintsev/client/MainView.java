@@ -1,16 +1,12 @@
 package com.damintsev.client;
 
 import com.damintsev.client.presenter.AnswerFormPresenter;
-import com.damintsev.client.presenter.Presenter;
 import com.damintsev.client.presenter.TreeAnswerPresenter;
 import com.damintsev.client.view.*;
-import com.damintsev.common.entity.Answer;
-import com.damintsev.common.entity.Topic;
 import com.damintsev.common.entity.TreeItem;
 import com.damintsev.common.event.ShowAnswerSectionEvent;
 import com.damintsev.common.event.ShowAnswerSectionHandler;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.sencha.gxt.widget.core.client.ContentPanel;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.FlowLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.Viewport;

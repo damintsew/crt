@@ -1,25 +1,17 @@
 package com.damintsev.client.view;
 
-import com.damintsev.common.entity.Entity;
 import com.damintsev.common.entity.TreeItem;
 import com.damintsev.common.entity.TreeNode;
 import com.damintsev.common.utils.AvalueProvider;
-import com.damintsev.common.utils.Dialogs;
-import com.damintsev.common.utils.Intell;
-import com.damintsev.common.utils.IntelligentTreeStore;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.uibinder.client.*;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
-import com.sencha.gxt.data.shared.PropertyAccess;
 import com.sencha.gxt.data.shared.TreeStore;
 import com.sencha.gxt.widget.core.client.TabPanel;
-import com.sencha.gxt.widget.core.client.event.ExpandItemEvent;
-import com.sencha.gxt.widget.core.client.event.FocusEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.ShowEvent;
 import com.sencha.gxt.widget.core.client.tree.Tree;
@@ -119,10 +111,4 @@ public class TreePanelViewImpl<T extends TreeItem> implements TreePanelView<T> {
         if(selected == null) return;
         presenter.removeEntity(selected);
     }
-
-//    @UiHandler("tree")
-//    public void onFocus(FocusEvent event) {
-//        presenter.onEntitySelected(tree.getSelectionModel().getSelectedItem());
-//    }
-
 }

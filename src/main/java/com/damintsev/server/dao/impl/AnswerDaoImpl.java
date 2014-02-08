@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -30,5 +31,15 @@ public class AnswerDaoImpl extends DomainDaoImpl<Answer> implements AnswerDao {
     @Override
     public List<Answer> getListAnswer() {
         return (List<Answer>)em.createQuery("SELECT a FROM Answer a").getResultList();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Answer getById(Long id) {
+        Query query = em.createQuery("SELECT a FROM Answer a " +
+                "JOIN FETCH a.entities WHERE a.id = :id");
+        query.setParameter("id", id);
+        return (Answer) query.getSingleResult();
     }
 }

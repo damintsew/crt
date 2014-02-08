@@ -1,10 +1,10 @@
 package com.damintsev.client.service;
 
+import com.damintsev.client.entity.UiAnswer;
 import com.damintsev.common.entity.*;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,13 +15,11 @@ import java.util.List;
 @RemoteServiceRelativePath("ServerConnection")
 public interface ServerConnection extends RemoteService {
 
-    void test();
-
     List<Entity> loadEntities();
 
     List<TreeNode<TreeItem>> loadMenuItems();
 
-    List<EntityAnswer> loadEntitiesByAnswerId(Long asnwerId);
+    UiAnswer loadUiAnswerById(Long answer);
 
     Answer loadAnswerById(Long answer);
 }

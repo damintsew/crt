@@ -11,15 +11,15 @@ import com.damintsev.common.entity.Answer;
 import java.util.List;
 
 /**
- * Dao layer to work with Answer entities
+ * Dao layer to work with UiAnswer entities
  */
 public interface AnswerDao {
 
     /**
-     * Return all Answer entities
+     * Return all UiAnswer entities
      * @return
      */
     List<Answer> getListAnswer();
 
-    Answer getById(Object id);
+    Answer getById(Long id);
 }

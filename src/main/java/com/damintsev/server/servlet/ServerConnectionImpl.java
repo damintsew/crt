@@ -1,12 +1,12 @@
 package com.damintsev.server.servlet;
 
+import com.damintsev.client.entity.UiAnswer;
 import com.damintsev.client.service.ServerConnection;
 import com.damintsev.common.entity.*;
 import com.damintsev.server.logic.BusinessLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -21,11 +21,6 @@ public class ServerConnectionImpl implements ServerConnection {
     private BusinessLayer business;
 
     @Override
-    public void test() {
-        System.out.println("FUCK U!!!!!");
-    }
-
-    @Override
     public List<Entity> loadEntities() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -36,12 +31,16 @@ public class ServerConnectionImpl implements ServerConnection {
     }
 
     @Override
-    public List<EntityAnswer> loadEntitiesByAnswerId(Long asnwerId) {
-        return business.getEntitiesByAnswerId(asnwerId);
+    public UiAnswer loadUiAnswerById(Long answerId) {
+        return null;
+//        return business.getAnswerById(answerId);
     }
 
     @Override
-    public Answer loadAnswerById(Long answerId) {
-        return business.getAnswerById(answerId);
+    public Answer loadAnswerById(Long answer) {
+        Answer a = business.getAnswerById(answer);
+        System.err.println("FUCKU=" + a.getEntities());
+        return a;
+//        return business.getAnswerById(answer);
     }
 }

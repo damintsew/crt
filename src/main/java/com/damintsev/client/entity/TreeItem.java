@@ -1,15 +1,13 @@
-package com.damintsev.common.entity;
+package com.damintsev.client.entity;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-
-import java.io.Serializable;
 
 /**
  * User: adamintsev
  * Date: 04.02.14
  * //todo написать комментарии
  */
-public interface TreeItem extends IsSerializable, Serializable{
+public interface TreeItem extends IsSerializable{
 
     Long getId();
 

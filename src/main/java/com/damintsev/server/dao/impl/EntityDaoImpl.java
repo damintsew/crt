@@ -5,7 +5,6 @@ import com.damintsev.server.dao.EntityDao;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
