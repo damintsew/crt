@@ -12,9 +12,8 @@ import java.util.logging.Handler;
  * @author Damintsev Andrey
  *         04.02.14.
  */
-
 /**
- * Respond for work with history. Fires event if URL is changes
+ * Responds for work with history. Fires event if URL is changes
  */
 public class SimpleHistoryManager implements ValueChangeHandler<String> {
 
@@ -33,6 +32,10 @@ public class SimpleHistoryManager implements ValueChangeHandler<String> {
         History.fireCurrentHistoryState();
     }
 
+    /**
+     * Method calls when browser history changes
+     * @param event
+     */
     @Override
     public void onValueChange(ValueChangeEvent<String> event) {
         onTokenChanged(event.getValue());
@@ -43,12 +46,11 @@ public class SimpleHistoryManager implements ValueChangeHandler<String> {
      * @param token
      */
     private void onTokenChanged(String token) {
-        System.out.println("topen=" + token);
         if (token.startsWith("answer") || token.equals("")) {
             Long id = parseId(token);
             handlerManager.fireEvent(new ShowAnswerSectionEvent(id));
         } else if (token.startsWith("entity")) {
-            showEntitySection();
+            //Another form
         }
     }
 
@@ -62,9 +64,5 @@ public class SimpleHistoryManager implements ValueChangeHandler<String> {
         if(array.length == 2)
             return Long.valueOf(array[1]);
         return null;
-    }
-
-    private void showEntitySection() {
-
     }
 }

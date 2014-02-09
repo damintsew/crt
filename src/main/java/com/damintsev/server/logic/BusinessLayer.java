@@ -28,4 +28,6 @@ public interface BusinessLayer {
     Answer getAnswerById(Long asnwerId);
 
     List<EntityAnswer> getEntitiesByAnswerId(Long asnwerId);
+
+    List<KillerPhrase> getListKillerPhraseByAnswerId(Long answerId);
 }

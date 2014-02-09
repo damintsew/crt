@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Date: 04.02.14
  * //todo написать комментарии
  */
-public interface TreeItem extends IsSerializable, Serializable{
+public interface TreeItem extends IsSerializable {
 
     Long getId();
 

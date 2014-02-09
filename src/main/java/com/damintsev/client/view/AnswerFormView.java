@@ -3,6 +3,7 @@ package com.damintsev.client.view;
 import com.damintsev.client.presenter.AnswerFormPresenter;
 import com.damintsev.common.entity.Answer;
 import com.damintsev.common.entity.EntityAnswer;
+import com.damintsev.common.entity.KillerPhrase;
 import com.google.gwt.user.client.ui.IsWidget;
 
 import java.util.List;
@@ -18,15 +19,21 @@ public interface AnswerFormView extends View {
 
     IsWidget asWidget();
 
-    void setEntitiesAnswer(List<EntityAnswer> entityAnswer);
-
     void setAnswer(Answer answer);
+
+    void setKillerPhrases(List<KillerPhrase> killerPhrases);
+
+    Answer getAnswer();
+
+    List<KillerPhrase> getKillerFrases();
 
     interface Presenter extends com.damintsev.client.presenter.Presenter {
 
         IsWidget asWidget();
 
         void loadEntity(Long answerId);
+
+        void save();
     }
 
 }

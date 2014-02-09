@@ -25,8 +25,8 @@
 
 <core:TabPanel ui:field="tabPanel">
     <core:child config="{answer}">
-        <container:FlowLayoutContainer>
-        <tree:Tree ui:field="tree" width="500px">
+        <container:FlowLayoutContainer scrollMode="AUTO">
+        <tree:Tree ui:field="tree">
         </tree:Tree>
             <button:ButtonBar horizontalSpacing="25">
                 <button:TextButton text="Добавить" ui:field="add" />

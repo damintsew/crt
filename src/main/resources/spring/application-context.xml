@@ -32,6 +32,7 @@
 
     <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="myEmf"/>
+        <property name="defaultTimeout" value="120"/>
     </bean>
     <tx:annotation-driven transaction-manager="txManager"/>
 </beans>

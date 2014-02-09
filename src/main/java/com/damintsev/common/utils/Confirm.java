@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ebolgar at 27.03.13 12:21
+ * Created by adamintsew at 27.03.13 12:21
  * Реализация Confirm
  */
 class Confirm extends Window {

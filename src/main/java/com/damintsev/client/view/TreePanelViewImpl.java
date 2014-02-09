@@ -3,6 +3,7 @@ package com.damintsev.client.view;
 import com.damintsev.common.entity.TreeItem;
 import com.damintsev.common.entity.TreeNode;
 import com.damintsev.common.utils.AvalueProvider;
+import com.damintsev.common.utils.Dialogs;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
@@ -107,8 +108,19 @@ public class TreePanelViewImpl<T extends TreeItem> implements TreePanelView<T> {
 
     @UiHandler("remove")
     public void remove(SelectEvent event) {
-        T selected = tree.getSelectionModel().getSelectedItem();
+        final T selected = tree.getSelectionModel().getSelectedItem();
         if(selected == null) return;
-        presenter.removeEntity(selected);
+        Dialogs.confirm("Будет произведено удаление. Продолжить?", new Runnable() {
+            @Override
+            public void run() {
+                presenter.removeEntity(selected);
+            }
+        });
+    }
+
+    @Override
+    public void removeEntity(String id) {
+        T entity = tree.getStore().findModelWithKey(id);
+        tree.getStore().remove(entity);
     }
 }

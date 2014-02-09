@@ -1,11 +1,15 @@
 package com.damintsev.client.presenter;
 
+import com.damintsev.client.EventBus;
 import com.damintsev.client.service.RpcService;
 import com.damintsev.client.view.TreePanelView;
 import com.damintsev.common.Callback;
 import com.damintsev.common.entity.Answer;
 import com.damintsev.common.entity.TreeItem;
 import com.damintsev.common.entity.TreeNode;
+import com.damintsev.common.event.AddNewEntityEvent;
+import com.damintsev.common.event.AddNewEntityHandler;
+import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -25,6 +29,12 @@ public class TreeAnswerPresenter implements TreePanelView.Presenter<TreeItem> {
     public TreeAnswerPresenter(TreePanelView<TreeItem> view) {
         this.view = view;
         view.setPresenter(this);
+        EventBus.get().addHandler(AddNewEntityEvent.TYPE, new AddNewEntityHandler() {
+            @Override
+            public void onEvent(AddNewEntityEvent event) {
+                loadRootElements();
+            }
+        });
     }
 
     @Override
@@ -35,12 +45,18 @@ public class TreeAnswerPresenter implements TreePanelView.Presenter<TreeItem> {
 
     @Override
     public void addEntity() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        History.newItem(BASE_URL + "-1");
     }
 
     @Override
-    public void removeEntity(TreeItem selected) {
-
+    public void removeEntity(final TreeItem selected) {
+        if(selected instanceof Answer)
+            RpcService.instance.removeAnswer(selected.getId(), new Callback<Void>() {
+                @Override
+                protected void onFinish(Void result) {
+                    view.removeEntity(selected.getStringId());
+                }
+            });
     }
 
     @Override

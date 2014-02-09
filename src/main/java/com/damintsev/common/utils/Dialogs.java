@@ -10,7 +10,7 @@ import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.info.Info;
 
 /**
- * Created by ebolgar at 23.01.13 11:20
+ * Created by adamintsew at 23.01.13 11:20
  * Диалоги
  */
 public class Dialogs {

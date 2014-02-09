@@ -4,9 +4,9 @@ import com.google.gwt.event.shared.EventHandler;
 
 /**
  * @author Damintsev Andrey
- *         28.01.14.
+ *         09.02.14.
  */
-public interface AlarmEventHandler extends EventHandler {
+public interface AddNewEntityHandler extends EventHandler {
 
-    void onAlarmEdit(AlarmEvent event);
+    void onEvent(AddNewEntityEvent event);
 }

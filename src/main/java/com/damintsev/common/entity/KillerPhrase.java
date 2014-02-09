@@ -1,5 +1,7 @@
 package com.damintsev.common.entity;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 
@@ -9,8 +11,8 @@ import javax.persistence.Entity;
  * //todo написать комментарии
  */
 @Entity
-@Table(name = "killerphrase")
-public class KillerPhrase {
+@Table(name = "killerphrases")
+public class KillerPhrase implements IsSerializable {
 
     @Id
     private Long id;
@@ -19,7 +21,7 @@ public class KillerPhrase {
     private String value;
 
     @JoinColumn(name = "answer_id")
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Answer answer;
 
     public Long getId() {

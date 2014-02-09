@@ -40,6 +40,7 @@ public class BusinessLayerImpl implements BusinessLayer {
             nodeMap.put(topic.getId(), new TreeNode<TreeItem>(topic));
         }
         for(Answer answer : answerDao.getListAnswer()) {
+            answer.getEntities();
             TreeNode<TreeItem> item = nodeMap.get(answer.getTopic().getId());
             if(item == null) {
                 item = new TreeNode<TreeItem>(answer.getTopic());
@@ -61,5 +62,10 @@ public class BusinessLayerImpl implements BusinessLayer {
     @Override
     public List<EntityAnswer> getEntitiesByAnswerId(Long asnwerId) {
         return entityDao.getEntitiesByAnswerId(asnwerId);
+    }
+
+    @Override
+    public List<KillerPhrase> getListKillerPhraseByAnswerId(Long answerId) {
+        return answerDao.getListKillerPhrase(answerId);
     }
 }

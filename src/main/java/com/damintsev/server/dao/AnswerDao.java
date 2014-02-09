@@ -7,6 +7,7 @@ package com.damintsev.server.dao;
  */
 
 import com.damintsev.common.entity.Answer;
+import com.damintsev.common.entity.KillerPhrase;
 
 import java.util.List;
 
@@ -16,10 +17,22 @@ import java.util.List;
 public interface AnswerDao {
 
     /**
-     * Return all UiAnswer entities
+     * Return all Answer entities (without mapping Entity)
      * @return
      */
     List<Answer> getListAnswer();
 
+    /**
+     * Retunt fully information of Answer (with mapping Entity)
+     * @param id
+     * @return
+     */
     Answer getById(Long id);
+
+    /**
+     * Returns List of KillerPhrases for selected Answer
+     * @param answerId
+     * @return
+     */
+    List<KillerPhrase> getListKillerPhrase(Long answerId);
 }

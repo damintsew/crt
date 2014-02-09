@@ -3,6 +3,7 @@ package com.damintsev.common.entity;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 @javax.persistence.Entity
 @Table(name = "entities")
-public class Entity implements IsSerializable {
+public class Entity implements IsSerializable, Serializable {
 
     @Id
     private Long id;
@@ -23,8 +24,8 @@ public class Entity implements IsSerializable {
     @Column(name = "title", length = 40)
     private String title;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "entities")
-    private List<Answer> answers;
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "entities")
+//    private List<Answer> answers;
 
     public Long getId() {
         return id;
@@ -50,11 +51,11 @@ public class Entity implements IsSerializable {
         this.title = title;
     }
 
-    public List<Answer> getAnswers() {
-        return answers;
-    }
+//    public List<Answer> getAnswers() {
+//        return answers;
+//    }
 
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
-    }
+//    public void setAnswers(List<Answer> answers) {
+//        this.answers = answers;
+//    }
 }

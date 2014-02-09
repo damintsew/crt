@@ -27,10 +27,16 @@
         <param-value>classpath:/log4j.properties</param-value>
     </context-param>
 
-    <servlet>
+    <!--<servlet>-->
+        <!--<servlet-name>dispatcher</servlet-name>-->
+        <!--<servlet-class>-->
+            <!--org.gwtrpcspring.RemoteServiceDispatcher-->
+        <!--</servlet-class>-->
+    <!--</servlet>-->
+        <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>
-            org.gwtrpcspring.RemoteServiceDispatcher
+            com.damintsev.server.servlet.RpcDispatcherServlet
         </servlet-class>
     </servlet>
 

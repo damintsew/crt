@@ -23,6 +23,7 @@ public interface TreePanelView<T extends TreeItem> extends View {
         boolean isContentLoaded();
     }
 
+    void removeEntity(String id);
     void setRootNodes(List<TreeNode<T>> nodes);
     void setPresenter(Presenter<T> presenter);
     Widget asWidget();

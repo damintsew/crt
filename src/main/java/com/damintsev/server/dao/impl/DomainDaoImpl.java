@@ -1,6 +1,8 @@
 package com.damintsev.server.dao.impl;
 
 import com.damintsev.server.dao.DomainDao;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -18,12 +20,15 @@ import javax.persistence.PersistenceContext;
 public class DomainDaoImpl<T> implements DomainDao<T> {
 
     @PersistenceContext
-    private EntityManager em;
+    protected EntityManager em;
+
+    protected Mapper mapper;
 
     private Class<T> clazz;
 
     public DomainDaoImpl(Class<T> clazz) {
         this.clazz = clazz;
+        mapper = new DozerBeanMapper();
     }
 
     /**

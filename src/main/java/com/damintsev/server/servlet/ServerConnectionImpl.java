@@ -1,6 +1,5 @@
 package com.damintsev.server.servlet;
 
-import com.damintsev.client.entity.UiAnswer;
 import com.damintsev.client.service.ServerConnection;
 import com.damintsev.common.entity.*;
 import com.damintsev.server.logic.BusinessLayer;
@@ -20,27 +19,51 @@ public class ServerConnectionImpl implements ServerConnection {
     @Autowired
     private BusinessLayer business;
 
-    @Override
-    public List<Entity> loadEntities() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<TreeNode<TreeItem>> loadMenuItems() {
         return business.getListTreeItems();
     }
 
-    @Override
-    public UiAnswer loadUiAnswerById(Long answerId) {
-        return null;
-//        return business.getAnswerById(answerId);
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Answer loadAnswerById(Long answer) {
-        Answer a = business.getAnswerById(answer);
-        System.err.println("FUCKU=" + a.getEntities());
-        return a;
-//        return business.getAnswerById(answer);
+        return business.getAnswerById(answer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<KillerPhrase> getListKillerPhraseByAnswerId(Long answerId) {
+        return business.getListKillerPhraseByAnswerId(answerId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeAnswer(Long id) {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Long saveAnswer(Answer answer) {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void saveKillerFrases(List<KillerPhrase> list) {
+
     }
 }

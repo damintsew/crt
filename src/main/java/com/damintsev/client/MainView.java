@@ -33,13 +33,11 @@ public class MainView {
         body = new BorderLayoutContainer();
         viewport.add(body);
 
-
         FlowLayoutContainer footer = new FlowLayoutContainer();
         footer.setHeight(20);
         footer.setStyleName("footer");
         body.setSouthWidget(footer, new BorderLayoutContainer.BorderLayoutData(20));
 
-//        body.setCenterWidget(new ContentPanel());
         RootPanel.get().add(viewport);
 
         EventBus.get().addHandler(ShowAnswerSectionEvent.TYPE, new ShowAnswerSectionHandler() {
@@ -68,8 +66,6 @@ public class MainView {
                     body.setCenterWidget(centerPresenter.asWidget());
                 }
                 centerPresenter.loadEntity(event.getAnswerId());
-
-
             }
         });
     }
