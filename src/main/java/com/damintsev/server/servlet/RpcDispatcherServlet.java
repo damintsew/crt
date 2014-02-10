@@ -20,14 +20,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 public class RpcDispatcherServlet extends RemoteServiceServlet {
 
-    /*
- * (non-Javadoc)
- *
- * @see
- * com.google.gwt.user.server.rpc.RemoteServiceServlet#processCall(java.
- * lang.String)
- */
-    @Override
+    /**
+     * Same as the gwt but retrieves bean from ApplicationContext
+     */
     public String processCall(String payload) throws SerializationException {
         try {
             String serviceIntfName = getInterfaceClassName(payload);
@@ -47,10 +42,6 @@ public class RpcDispatcherServlet extends RemoteServiceServlet {
 
     /**
      * Reads the payload looking for the interface class name.
-     *
-     * @param payload
-     * @return
-     * @throws SerializationException
      */
     private String getInterfaceClassName(String payload)
             throws SerializationException {
@@ -63,10 +54,6 @@ public class RpcDispatcherServlet extends RemoteServiceServlet {
     /**
      * getService will look in context for bean with name of interface. It also
      * verifies the bean implements the given interface.
-     *
-     * @return
-     * @throws org.springframework.beans.BeansException
-     * @throws ClassNotFoundException
      */
     protected Object getService(String itfName) throws BeansException {
         try {

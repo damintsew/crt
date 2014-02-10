@@ -21,5 +21,5 @@ public interface ServerConnectionAsync {
 
     void saveAnswer(Answer answer, AsyncCallback<Long> async);
 
-    void saveKillerFrases(List<KillerPhrase> list, AsyncCallback<Void> async);
+    void saveKillerPhrases(List<KillerPhrase> list, AsyncCallback<Void> async);
 }

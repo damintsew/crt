@@ -53,18 +53,35 @@ public class BusinessLayerImpl implements BusinessLayer {
         return answerDao.getById(answerId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<KillerPhrase> getListKillerPhraseByAnswerId(Long answerId) {
         return answerDao.getListKillerPhrase(answerId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeAnswer(Long id) {
         answerDao.removeAnswer(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Long saveAnswer(Answer answer) {
         return answerDao.saveAnswer(answer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void saveKillerPhrases(List<KillerPhrase> killerPhrases) {
+        answerDao.saveKillerPhrases(killerPhrases);
     }
 }

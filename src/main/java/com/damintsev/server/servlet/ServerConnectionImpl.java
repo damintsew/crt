@@ -64,7 +64,7 @@ public class ServerConnectionImpl implements ServerConnection {
      * {@inheritDoc}
      */
     @Override
-    public void saveKillerFrases(List<KillerPhrase> list) {
-
+    public void saveKillerPhrases(List<KillerPhrase> killerPhrases) {
+        business.saveKillerPhrases(killerPhrases);
     }
 }

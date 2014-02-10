@@ -56,5 +56,5 @@ public interface ServerConnection extends RemoteService {
      * Save List of KillerFrases
      * @param list
      */
-    void saveKillerFrases(List<KillerPhrase> list);
+    void saveKillerPhrases(List<KillerPhrase> list);
 }

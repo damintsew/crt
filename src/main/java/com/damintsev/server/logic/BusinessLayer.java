@@ -47,4 +47,10 @@ public interface BusinessLayer {
      * @return new answer Id
      */
     Long saveAnswer(Answer answer);
+
+    /**
+     * Save list KillerPhrases
+     * @param killerPhrases
+     */
+    void saveKillerPhrases(List<KillerPhrase> killerPhrases);
 }

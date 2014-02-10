@@ -54,4 +54,10 @@ public interface AnswerDao {
      * @return
      */
     List<Topic> getListTopic();
+
+    /**
+     * Save list KillerPhrases
+     * @param killerPhrases
+     */
+    void saveKillerPhrases(List<KillerPhrase> killerPhrases);
 }

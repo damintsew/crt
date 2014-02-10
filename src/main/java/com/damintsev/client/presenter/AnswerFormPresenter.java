@@ -80,7 +80,7 @@ public class AnswerFormPresenter implements AnswerFormView.Presenter, Presenter{
                 for (KillerPhrase phrase : killerPhrases) {
                     phrase.setAnswer(answer);
                 }
-                RpcService.instance.saveKillerFrases(killerPhrases, new Callback<Void>() {
+                RpcService.instance.saveKillerPhrases(killerPhrases, new Callback<Void>() {
                     @Override
                     protected void onFinish(Void result) {
                     }

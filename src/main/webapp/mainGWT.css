@@ -1,29 +1,27 @@
-/** Add css rules here for your application. */
+body {
+    margin: 0px;
+    padding: 0px;
+}
 
-
-body
-{
-    margin:0px;
-    padding:0px;
-}*
+*
 
 h1 {
-  font-size: 2em;
-  font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
-  text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: #777777;
+    margin: 40px 0px 70px;
+    text-align: center;
 }
 
 #closeButton {
-  margin: 15px 6px 6px;
+    margin: 15px 6px 6px;
 }
 
-.header{
+.header {
     background-color: #d7d7d7;
 }
 
-.footer{
+.footer {
     background-color: #d7d7d7;
 }
 
