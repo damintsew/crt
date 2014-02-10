@@ -1,12 +1,15 @@
 package com.damintsev.client.presenter;
 
-import com.damintsev.client.EventBus;
+import com.damintsev.common.utils.EventBus;
 import com.damintsev.client.service.RpcService;
 import com.damintsev.client.view.AnswerFormView;
-import com.damintsev.common.Callback;
+import com.damintsev.common.utils.Callback;
 import com.damintsev.common.entity.Answer;
 import com.damintsev.common.entity.KillerPhrase;
+import com.damintsev.common.entity.Topic;
 import com.damintsev.common.event.AddNewEntityEvent;
+import com.damintsev.common.event.AddNewEntityHandler;
+import com.damintsev.common.event.SaveNewEntityEvent;
 import com.google.gwt.user.client.ui.IsWidget;
 
 import java.util.ArrayList;
@@ -15,7 +18,10 @@ import java.util.List;
 /**
  * User: adamintsev
  * Date: 06.02.14
- * //todo написать комментарии
+ */
+
+/**
+ * Presenter for AnswerForm
  */
 public class AnswerFormPresenter implements AnswerFormView.Presenter, Presenter{
 
@@ -24,6 +30,15 @@ public class AnswerFormPresenter implements AnswerFormView.Presenter, Presenter{
     public AnswerFormPresenter(AnswerFormView answerFormView) {
         this.answerFormView = answerFormView;
         answerFormView.setPresenter(this);
+        EventBus.get().addHandler(AddNewEntityEvent.TYPE, new AddNewEntityHandler() {
+            @Override
+            public void onEvent(AddNewEntityEvent event) {
+                Answer answer = new Answer();
+                answer.setTopic((Topic) event.getItem());
+                AnswerFormPresenter.this.answerFormView.setAnswer(answer);
+                AnswerFormPresenter.this.answerFormView.setKillerPhrases(new ArrayList<KillerPhrase>());
+            }
+        });
     }
 
     @Override
@@ -33,8 +48,7 @@ public class AnswerFormPresenter implements AnswerFormView.Presenter, Presenter{
 
     @Override
     public void loadEntity(Long answerId) {
-        if (answerId == null) return;
-        if (answerId == -1) {
+        if (answerId == null){
             answerFormView.setAnswer(new Answer());
             answerFormView.setKillerPhrases(new ArrayList<KillerPhrase>());
         } else {
@@ -56,14 +70,14 @@ public class AnswerFormPresenter implements AnswerFormView.Presenter, Presenter{
     @Override
     public void save() {
         final Answer answer = answerFormView.getAnswer();
-        //This method need to be optimize (visually) using a queue that call Rpc mmethods
+        //This method need to be optimize (visually) using a queue that call Rpc methods
         RpcService.instance.saveAnswer(answer, new Callback<Long>() {
             @Override
             protected void onFinish(Long result) {
                 answer.setId(result);
-                EventBus.get().fireEvent(new AddNewEntityEvent(answer));
+                EventBus.get().fireEvent(new SaveNewEntityEvent(answer));
                 List<KillerPhrase> killerPhrases = answerFormView.getKillerFrases();
-                for(KillerPhrase phrase : killerPhrases) {
+                for (KillerPhrase phrase : killerPhrases) {
                     phrase.setAnswer(answer);
                 }
                 RpcService.instance.saveKillerFrases(killerPhrases, new Callback<Void>() {

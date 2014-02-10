@@ -53,7 +53,7 @@ public class AnswerFormViewImpl implements AnswerFormView {
     @UiField
     VerticalLayoutContainer entityContainer;
 
-    Grid<KillerPhrase> gridKillerFrases;
+    Grid<KillerPhrase> killerPhraseGrid;
 
     public AnswerFormViewImpl() {
         uiBinder.createAndBindUi(this);
@@ -76,24 +76,24 @@ public class AnswerFormViewImpl implements AnswerFormView {
         valueColumn.setWidth(500);
         List<ColumnConfig<KillerPhrase, ?>> columnModel = new ArrayList<ColumnConfig<KillerPhrase, ?>>(1);
         columnModel.add(valueColumn);
-        gridKillerFrases = new Grid<KillerPhrase>(new ListStore<KillerPhrase>(new ModelKeyProvider<KillerPhrase>() {
+        killerPhraseGrid = new Grid<KillerPhrase>(new ListStore<KillerPhrase>(new ModelKeyProvider<KillerPhrase>() {
             @Override
             public String getKey(KillerPhrase item) {
                 return item.getId() == null?"null" : item.getId().toString();
             }
         }), new ColumnModel<KillerPhrase> (columnModel));
-        GridEditing<KillerPhrase> gridEditing = new GridInlineEditing<KillerPhrase>(gridKillerFrases);
+        GridEditing<KillerPhrase> gridEditing = new GridInlineEditing<KillerPhrase>(killerPhraseGrid);
         gridEditing.addEditor(valueColumn, new TextField());
         ToolButton addButton = new ToolButton(ToolButton.PLUS);
         addButton.addSelectHandler(new SelectEvent.SelectHandler() {
             @Override
             public void onSelect(SelectEvent event) {
-                gridKillerFrases.getStore().add(new KillerPhrase());
+                killerPhraseGrid.getStore().add(new KillerPhrase());
             }
         });
         ContentPanel panel  = new ContentPanel();
         panel.setHeaderVisible(false);
-        panel.add(gridKillerFrases);
+        panel.add(killerPhraseGrid);
         panel.addButton(new TextButton("Сохранить", new SelectEvent.SelectHandler() {
             @Override
             public void onSelect(SelectEvent event) {
@@ -137,13 +137,13 @@ public class AnswerFormViewImpl implements AnswerFormView {
 
     @Override
     public void setKillerPhrases(List<KillerPhrase> killerPhrases) {
-        gridKillerFrases.getStore().clear();
-        gridKillerFrases.getStore().addAll(killerPhrases);
+        killerPhraseGrid.getStore().clear();
+        killerPhraseGrid.getStore().addAll(killerPhrases);
     }
 
     @Override
     public List<KillerPhrase> getKillerFrases() {
-        return gridKillerFrases.getStore().getAll();
+        return killerPhraseGrid.getStore().getAll();
     }
 
     @Override

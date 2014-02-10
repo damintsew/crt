@@ -1,7 +1,5 @@
 package com.damintsev.common.entity;
 
-import com.google.gwt.user.client.rpc.GwtTransient;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -36,7 +34,6 @@ public class Answer implements TreeItem {
     @ManyToOne
     private Topic topic;
 
-//    @GwtTransient
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "entities_answers",
         joinColumns = {@JoinColumn(name = "answer_id", nullable = false)},

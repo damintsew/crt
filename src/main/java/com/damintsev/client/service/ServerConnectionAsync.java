@@ -1,7 +1,7 @@
 package com.damintsev.client.service;
 
-import com.damintsev.common.Callback;
 import com.damintsev.common.entity.*;
+import com.damintsev.common.utils.TreeNode;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import java.util.List;

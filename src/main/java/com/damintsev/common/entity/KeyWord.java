@@ -5,7 +5,6 @@ import javax.persistence.*;
 /**
  * User: adamintsev
  * Date: 04.02.14
- * //todo написать комментарии
  */
 
 @javax.persistence.Entity

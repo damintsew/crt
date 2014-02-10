@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * User: adamintsev
  * Date: 04.02.14
- * //todo написать комментарии
  */
 @javax.persistence.Entity
 @Table(name = "entities")
@@ -23,9 +22,6 @@ public class Entity implements IsSerializable, Serializable {
 
     @Column(name = "title", length = 40)
     private String title;
-
-//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "entities")
-//    private List<Answer> answers;
 
     public Long getId() {
         return id;

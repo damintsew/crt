@@ -1,7 +1,7 @@
 package com.damintsev.client.view;
 
 import com.damintsev.common.entity.TreeItem;
-import com.damintsev.common.entity.TreeNode;
+import com.damintsev.common.utils.TreeNode;
 import com.damintsev.common.utils.AvalueProvider;
 import com.damintsev.common.utils.Dialogs;
 import com.google.gwt.core.client.GWT;
@@ -23,7 +23,6 @@ import java.util.List;
 /**
  * User: adamintsev
  * Date: 04.02.14
- * //todo написать комментарии
  */
 public class TreePanelViewImpl<T extends TreeItem> implements TreePanelView<T> {
 
@@ -103,7 +102,8 @@ public class TreePanelViewImpl<T extends TreeItem> implements TreePanelView<T> {
 
     @UiHandler("add")
     public void add(SelectEvent event) {
-        presenter.addEntity();
+        final T selected = tree.getSelectionModel().getSelectedItem();
+        presenter.addEntity(selected);
     }
 
     @UiHandler("remove")

@@ -6,6 +6,7 @@ package com.damintsev.server.logic;
  */
 
 import com.damintsev.common.entity.*;
+import com.damintsev.common.utils.TreeNode;
 
 import java.util.List;
 
@@ -21,13 +22,29 @@ public interface BusinessLayer {
     List<TreeNode<TreeItem>> getListTreeItems();
 
     /**
-     * Return Ansewr entity bi his Id
-     * @param asnwerId
+     * Return Answer entity by his Id
+     * @param answerId
      * @return
      */
-    Answer getAnswerById(Long asnwerId);
+    Answer getAnswerById(Long answerId);
 
-    List<EntityAnswer> getEntitiesByAnswerId(Long asnwerId);
-
+    /**
+     * Get all KillerPhrase for Answer with desired id
+     * @param answerId
+     * @return
+     */
     List<KillerPhrase> getListKillerPhraseByAnswerId(Long answerId);
+
+    /**
+     * Remove Answer entity
+      * @param id
+     */
+    void removeAnswer(Long id);
+
+    /**
+     * Save answer entity
+     * @param answer
+     * @return new answer Id
+     */
+    Long saveAnswer(Answer answer);
 }

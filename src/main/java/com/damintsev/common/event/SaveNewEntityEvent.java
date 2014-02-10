@@ -7,27 +7,23 @@ import com.google.gwt.event.shared.GwtEvent;
  * @author Damintsev Andrey
  *         09.02.14.
  */
-public class AddNewEntityEvent extends GwtEvent<AddNewEntityHandler> {
+public class SaveNewEntityEvent extends GwtEvent<SaveNewEntityHandler> {
 
-    public static Type<AddNewEntityHandler> TYPE = new Type<AddNewEntityHandler>();
+    public static GwtEvent.Type<SaveNewEntityHandler> TYPE = new GwtEvent.Type<SaveNewEntityHandler>();
 
     private TreeItem item;
 
-    public AddNewEntityEvent() {
-        this(null);
-    }
-
-    public AddNewEntityEvent(TreeItem item) {
+    public SaveNewEntityEvent(TreeItem item) {
         this.item = item;
     }
 
     @Override
-    public Type<AddNewEntityHandler> getAssociatedType() {
+    public Type<SaveNewEntityHandler> getAssociatedType() {
         return TYPE;
     }
 
     @Override
-    protected void dispatch(AddNewEntityHandler handler) {
+    protected void dispatch(SaveNewEntityHandler handler) {
         handler.onEvent(this);
     }
 

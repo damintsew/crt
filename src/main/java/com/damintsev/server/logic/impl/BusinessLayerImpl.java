@@ -1,9 +1,8 @@
 package com.damintsev.server.logic.impl;
 
 import com.damintsev.common.entity.*;
+import com.damintsev.common.utils.TreeNode;
 import com.damintsev.server.dao.AnswerDao;
-import com.damintsev.server.dao.EntityDao;
-import com.damintsev.server.dao.TopicDao;
 import com.damintsev.server.logic.BusinessLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,13 +21,8 @@ import java.util.*;
 public class BusinessLayerImpl implements BusinessLayer {
 
     @Autowired
-    private TopicDao topicDao;
-
-    @Autowired
     private AnswerDao answerDao;
 
-    @Autowired
-    private EntityDao entityDao;
 
     /**
      * {@inheritDoc}
@@ -36,7 +30,7 @@ public class BusinessLayerImpl implements BusinessLayer {
     @Override
     public List<TreeNode<TreeItem>> getListTreeItems() {
         Map<Long, TreeNode<TreeItem>> nodeMap = new HashMap<>();
-        for(Topic topic : topicDao.getListTopic()) {
+        for(Topic topic : answerDao.getListTopic()) {
             nodeMap.put(topic.getId(), new TreeNode<TreeItem>(topic));
         }
         for(Answer answer : answerDao.getListAnswer()) {
@@ -60,12 +54,17 @@ public class BusinessLayerImpl implements BusinessLayer {
     }
 
     @Override
-    public List<EntityAnswer> getEntitiesByAnswerId(Long asnwerId) {
-        return entityDao.getEntitiesByAnswerId(asnwerId);
+    public List<KillerPhrase> getListKillerPhraseByAnswerId(Long answerId) {
+        return answerDao.getListKillerPhrase(answerId);
     }
 
     @Override
-    public List<KillerPhrase> getListKillerPhraseByAnswerId(Long answerId) {
-        return answerDao.getListKillerPhrase(answerId);
+    public void removeAnswer(Long id) {
+        answerDao.removeAnswer(id);
+    }
+
+    @Override
+    public Long saveAnswer(Answer answer) {
+        return answerDao.saveAnswer(answer);
     }
 }

@@ -2,6 +2,7 @@ package com.damintsev.server.servlet;
 
 import com.damintsev.client.service.ServerConnection;
 import com.damintsev.common.entity.*;
+import com.damintsev.common.utils.TreeNode;
 import com.damintsev.server.logic.BusinessLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class ServerConnectionImpl implements ServerConnection {
      */
     @Override
     public void removeAnswer(Long id) {
-
+        business.removeAnswer(id);
     }
 
     /**
@@ -56,7 +57,7 @@ public class ServerConnectionImpl implements ServerConnection {
      */
     @Override
     public Long saveAnswer(Answer answer) {
-        return null;
+        return business.saveAnswer(answer);
     }
 
     /**

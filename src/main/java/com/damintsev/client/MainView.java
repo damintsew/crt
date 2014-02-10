@@ -3,6 +3,7 @@ package com.damintsev.client;
 import com.damintsev.client.presenter.AnswerFormPresenter;
 import com.damintsev.client.presenter.TreeAnswerPresenter;
 import com.damintsev.client.view.*;
+import com.damintsev.common.utils.EventBus;
 import com.damintsev.common.entity.TreeItem;
 import com.damintsev.common.event.ShowAnswerSectionEvent;
 import com.damintsev.common.event.ShowAnswerSectionHandler;
@@ -17,9 +18,13 @@ import java.util.HashMap;
  * @author Damintsev Andrey
  *         04.02.14.
  */
+
+/**
+ * Main view. Constructs form with two panels. Left for TreePanel. Right for ContentPanel
+ */
 public class MainView {
 
-    private HashMap<String, View> viewMap;
+    private static HashMap<String, View> viewMap;
     private BorderLayoutContainer body;
     private TreePanelView.Presenter<TreeItem> menuPresenter;
     private AnswerFormView.Presenter centerPresenter;

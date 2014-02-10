@@ -1,4 +1,4 @@
-package com.damintsev.common;
+package com.damintsev.common.utils;
 
 import com.damintsev.common.exception.CustomException;
 import com.damintsev.common.utils.Dialogs;

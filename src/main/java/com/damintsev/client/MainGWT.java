@@ -1,5 +1,6 @@
 package com.damintsev.client;
 
+import com.damintsev.common.utils.EventBus;
 import com.damintsev.common.utils.async.Async;
 import com.damintsev.common.utils.async.AsyncTask;
 import com.google.gwt.core.client.EntryPoint;
@@ -10,6 +11,9 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.DialogBox;
 
+/**
+ * Initializes ExceptionHandler
+ */
 public class MainGWT implements EntryPoint {
 
     public void onModuleLoad() {

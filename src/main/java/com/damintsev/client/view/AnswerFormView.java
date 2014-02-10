@@ -11,7 +11,10 @@ import java.util.List;
 /**
  * User: adamintsev
  * Date: 06.02.14
- * //todo написать комментарии
+ */
+
+/**
+ * AnswerFormView interface
  */
 public interface AnswerFormView extends View {
 

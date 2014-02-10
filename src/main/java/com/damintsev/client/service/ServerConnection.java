@@ -1,7 +1,7 @@
 package com.damintsev.client.service;
 
-import com.damintsev.common.Callback;
 import com.damintsev.common.entity.*;
+import com.damintsev.common.utils.TreeNode;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 /**
- * Syncronous interaface to server gwt rpc
+ * Synchronous interface to server gwt rpc
  */
 @RemoteServiceRelativePath("ServerConnection")
 public interface ServerConnection extends RemoteService {
@@ -53,7 +53,7 @@ public interface ServerConnection extends RemoteService {
     Long saveAnswer(Answer answer);
 
     /**
-     * Save List of killer frases
+     * Save List of KillerFrases
      * @param list
      */
     void saveKillerFrases(List<KillerPhrase> list);

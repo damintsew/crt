@@ -1,4 +1,4 @@
-package com.damintsev.client;
+package com.damintsev.common.utils;
 
 import com.google.gwt.event.shared.HandlerManager;
 

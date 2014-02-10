@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 /**
  * User: adamintsev
  * Date: 04.02.14
- * //todo написать комментарии
  */
 @Entity
 @Table(name = "killerphrases")

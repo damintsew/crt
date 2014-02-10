@@ -3,11 +3,11 @@ package com.damintsev.server.dao;
 /**
  * User: adamintsev
  * Date: 05.02.14
- * //todo написать комментарии
  */
 
 import com.damintsev.common.entity.Answer;
 import com.damintsev.common.entity.KillerPhrase;
+import com.damintsev.common.entity.Topic;
 
 import java.util.List;
 
@@ -35,4 +35,23 @@ public interface AnswerDao {
      * @return
      */
     List<KillerPhrase> getListKillerPhrase(Long answerId);
+
+    /**
+     * Remove answer entity
+     * @param id
+     */
+    void removeAnswer(Long id);
+
+    /**
+     * Save answer entity
+     * @param answer
+     * @return
+     */
+    Long saveAnswer(Answer answer);
+
+    /**
+     * Returns all Topic entities
+     * @return
+     */
+    List<Topic> getListTopic();
 }

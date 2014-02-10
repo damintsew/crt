@@ -2,15 +2,12 @@ package com.damintsev.server.dao.impl;
 
 import com.damintsev.common.entity.Answer;
 import com.damintsev.common.entity.KillerPhrase;
+import com.damintsev.common.entity.Topic;
 import com.damintsev.server.dao.AnswerDao;
-import com.sun.org.apache.regexp.internal.recompile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,31 +19,53 @@ import java.util.List;
 /**
  * User: adamintsev
  * Date: 05.02.14
- * //todo написать комментарии
  */
 @Component
-public class AnswerDaoImpl extends DomainDaoImpl<Answer> implements AnswerDao {
+public class AnswerDaoImpl implements AnswerDao {
 
     @Autowired
     private DataSource dataSource;
-
-    public AnswerDaoImpl() {
-        super(Answer.class);
-    }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @Transactional
     public List<Answer> getListAnswer() {
-        List<Answer> newAnswers = new ArrayList<>();
-        Query query = em.createQuery("SELECT a FROM Answer a ");
-        for(Answer answer : (List<Answer>)query.getResultList()) {
-            answer = mapper.map(answer, Answer.class);
-            newAnswers.add(answer);
+        List<Answer> answerList = new ArrayList<>();
+        String sql = "SELECT a.id," +
+                "    a.name," +
+                "    a.question," +
+                "    a.answer," +
+                "    a.priority," +
+                "    a.disabled," +
+                "    a.action," +
+                "    t.id," +
+                "    t.name " +
+                "FROM answers a " +
+                "INNER JOIN topics t " +
+                "ON t.id = a.topic_id ";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmnt = connection.prepareStatement(sql)) {
+            ResultSet resultSet = stmnt.executeQuery();
+            while (resultSet.next()) {
+                Answer answer = new Answer();
+                answer.setId(resultSet.getLong("a.id"));
+                answer.setName(resultSet.getString("a.name"));
+                answer.setQuestion(resultSet.getString("a.question"));
+                answer.setAnswer(resultSet.getString("a.answer"));
+                answer.setPriority(resultSet.getFloat("a.priority"));
+                answer.setDisabled(resultSet.getInt("a.disabled"));
+                Topic topic = new Topic();
+                topic.setId(resultSet.getLong("t.id"));
+                topic.setName(resultSet.getString("t.name"));
+                answer.setTopic(topic);
+                answerList.add(answer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return newAnswers;
+        return answerList;
     }
 
     /**
@@ -54,10 +73,42 @@ public class AnswerDaoImpl extends DomainDaoImpl<Answer> implements AnswerDao {
      */
     @Transactional
     public Answer getById(Long id) {
-        Query query = em.createQuery("SELECT a FROM Answer a " +
-                "JOIN FETCH a.entities WHERE a.id = :id");
-        query.setParameter("id", id);
-        return mapper.map(query.getSingleResult(), Answer.class);
+        Answer answer = null;
+        String sql = "SELECT a.id," +
+                "    a.name," +
+                "    a.question," +
+                "    a.answer," +
+                "    a.priority," +
+                "    a.disabled," +
+                "    a.action," +
+                "    t.id," +
+                "    t.name " +
+                "FROM answers a " +
+                "INNER JOIN topics t " +
+                "ON t.id = a.topic_id " +
+                "WHERE a.id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmnt = connection.prepareStatement(sql)) {
+            stmnt.setLong(1, id);
+            ResultSet resultSet = stmnt.executeQuery();
+            if (resultSet.next()) {
+                answer = new Answer();
+                answer.setId(resultSet.getLong("a.id"));
+                answer.setName(resultSet.getString("a.name"));
+                answer.setQuestion(resultSet.getString("a.question"));
+                answer.setAnswer(resultSet.getString("a.answer"));
+                answer.setPriority(resultSet.getFloat("a.priority"));
+                answer.setDisabled(resultSet.getInt("a.disabled"));
+                Topic topic = new Topic();
+                topic.setId(resultSet.getLong("t.id"));
+                topic.setName(resultSet.getString("t.name"));
+                answer.setTopic(topic);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return answer;
     }
 
     /**
@@ -67,8 +118,8 @@ public class AnswerDaoImpl extends DomainDaoImpl<Answer> implements AnswerDao {
     public List<KillerPhrase> getListKillerPhrase(Long answerId) {
         List<KillerPhrase> list = new ArrayList<>();
         String sql = "SELECT * FROM killerphrases where answer_id = ?";
-        try(Connection connection = dataSource.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, answerId);
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
@@ -78,10 +129,130 @@ public class AnswerDaoImpl extends DomainDaoImpl<Answer> implements AnswerDao {
                 list.add(killerPhrase);
             }
             resultSet.close();
-            return list;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return list;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeAnswer(Long id) {
+        try (Connection connection = dataSource.getConnection()) {
+            connection.setAutoCommit(false);
+            String sql = "DELETE FROM killerphrases WHERE answer_id = ?";
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setLong(1, id);
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+
+            sql = "SELECT entity_id FROM entities_answers WHERE answer_id = ?";
+            List<Long> idToRemove = new ArrayList<>();
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setLong(1, id);
+                ResultSet resultSet = stmt.executeQuery();
+                while (resultSet.next())
+                    idToRemove.add(resultSet.getLong("entity_id"));
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+
+            sql = "DELETE FROM entities_answers WHERE answer_id = ?";
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setLong(1, id);
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+
+            if(idToRemove.size() > 0) {
+                StringBuilder sb = new StringBuilder();
+            sb.append("DELETE FROM entities WHERE id in (");
+                for(int i = 0; i < idToRemove.size(); i++) {
+                    sb.append("?");
+                    sb.append((i==idToRemove.size()-1)?")":",");
+                }
+                try (PreparedStatement stmt = connection.prepareStatement(sb.toString())) {
+                    for(int i = 0; i < idToRemove.size(); i++) {
+                        stmt.setLong((i+1), idToRemove.get(i));
+                    }
+                    stmt.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
+            }
+
+            sql = "DELETE FROM answers WHERE id = ?";
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setLong(1, id);
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Long saveAnswer(Answer answer) {
+        String sql = "INSERT INTO answers (id, name, question, answer, priority, disabled, topic_id)" +
+                " values (?,?,?,?,?,?,?) " +
+                " ON DUPLICATE KEY UPDATE name = VALUES(name), question = VALUES(question)," +
+                "answer = VALUES(answer), priority = VALUES(priority), topic_id = VALUES(topic_id)," +
+                "disabled = VALUES(disabled), action = VALUES(action)";
+        try(Connection connection = dataSource.getConnection();
+        PreparedStatement stmnt = connection.prepareStatement(sql)) {
+            stmnt.setLong(1, answer.getId());
+            stmnt.setString(2, answer.getName());
+            stmnt.setString(3, answer.getQuestion());
+            stmnt.setString(4, answer.getAnswer());
+            stmnt.setFloat(5, answer.getPriority());
+            stmnt.setInt(6, answer.getDisabled());
+            stmnt.setLong(7, answer.getTopic().getId());
+            stmnt.executeUpdate();
+        }   catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
         return null;
-     }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Topic> getListTopic() {
+        List<Topic> topicList = new ArrayList<>();
+        String sql = "SELECT  t.id,t.name FROM topics t";
+        try (Connection connection = dataSource.getConnection();
+            PreparedStatement stmnt = connection.prepareStatement(sql)){
+            ResultSet resultSet = stmnt.executeQuery();
+            while (resultSet.next()) {
+                Topic topic = new Topic();
+                topic.setId(resultSet.getLong("t.id"));
+                topic.setName(resultSet.getString("t.name"));
+                topicList.add(topic);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return topicList;
+    }
 }
