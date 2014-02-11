@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -213,23 +210,25 @@ public class AnswerDaoImpl implements AnswerDao {
     /**
      * {@inheritDoc}
      */
-    @Override
+    @Override     //TODO Doesn`t work
     public Long saveAnswer(Answer answer) {
-        String sql = "INSERT INTO answers (id, name, question, answer, priority, disabled, topic_id)" +
-                " values (?,?,?,?,?,?,?) " +
+        String sql = "INSERT INTO answers (name, question, answer, priority, disabled, topic_id)" +
+                " values (?,?,?,?,?,?) " +
                 " ON DUPLICATE KEY UPDATE name = VALUES(name), question = VALUES(question)," +
                 "answer = VALUES(answer), priority = VALUES(priority), topic_id = VALUES(topic_id)," +
                 "disabled = VALUES(disabled), action = VALUES(action)";
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement stmnt = connection.prepareStatement(sql)) {
-            stmnt.setLong(1, answer.getId());
-            stmnt.setString(2, answer.getName());
-            stmnt.setString(3, answer.getQuestion());
-            stmnt.setString(4, answer.getAnswer());
-            stmnt.setFloat(5, answer.getPriority());
-            stmnt.setInt(6, answer.getDisabled());
-            stmnt.setLong(7, answer.getTopic().getId());
+             PreparedStatement stmnt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmnt.setString(1, answer.getName());
+            stmnt.setString(2, answer.getQuestion());
+            stmnt.setString(3, answer.getAnswer());
+            stmnt.setFloat(4, answer.getPriority() == null ? 0.0f : answer.getPriority());
+            stmnt.setInt(5, answer.getDisabled()== null ? -1 : answer.getDisabled());
+            stmnt.setLong(6, answer.getTopic().getId());
             stmnt.executeUpdate();
+            ResultSet resultSet = stmnt.getGeneratedKeys();
+            if(resultSet.next())
+                return resultSet.getLong(1);
         } catch (SQLException e) {
             logger.error(e.getMessage(),e);
             throw new RuntimeException(e);

@@ -3,7 +3,12 @@ package com.damintsev.client.presenter;
 /**
  * User: adamintsev
  * Date: 04.02.14
- * //todo написать комментарии
+ */
+
+/**
+ * Main presenter interface to handle all together
  */
 public interface Presenter {
+
+
 }

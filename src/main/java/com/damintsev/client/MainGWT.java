@@ -52,8 +52,8 @@ public class MainGWT implements EntryPoint {
             @Override
             public void onSuccess() {
                 new MainView();
-                SimpleHistoryManager historyManager = new SimpleHistoryManager(EventBus.get());
-                History.newItem("answer");
+                new SimpleHistoryManager(EventBus.get());
+                History.fireCurrentHistoryState();
             }
         });
     }

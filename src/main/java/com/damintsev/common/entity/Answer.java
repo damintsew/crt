@@ -8,7 +8,7 @@ import java.util.List;
  *         04.02.14.
  */
 @javax.persistence.Entity
-@Table(name = "answers")
+@Table(name = "answers" )
 public class Answer implements TreeItem {
 
     @Id

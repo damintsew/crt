@@ -42,7 +42,7 @@ public class BusinessLayerImpl implements BusinessLayer {
             }
             item.appendChildren(new TreeNode<TreeItem>(answer));
         }
-        return new ArrayList<TreeNode<TreeItem>>(nodeMap.values());
+        return new ArrayList<>(nodeMap.values());
     }
 
     /**

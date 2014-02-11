@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Presenter for AnswerForm
  */
-public class AnswerFormPresenter implements AnswerFormView.Presenter, Presenter{
+public class AnswerFormPresenter implements AnswerFormView.Presenter {
 
     private AnswerFormView answerFormView;
 

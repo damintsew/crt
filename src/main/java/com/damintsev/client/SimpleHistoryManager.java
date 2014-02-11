@@ -1,6 +1,7 @@
 package com.damintsev.client;
 
 import com.damintsev.common.event.ShowAnswerSectionEvent;
+import com.damintsev.common.event.ShowAnswerTreeMenuEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerManager;
@@ -48,6 +49,7 @@ public class SimpleHistoryManager implements ValueChangeHandler<String> {
     private void onTokenChanged(String token) {
         if (token.startsWith("answer") || token.equals("")) {
             Long id = parseId(token);
+            handlerManager.fireEvent(new ShowAnswerTreeMenuEvent());
             handlerManager.fireEvent(new ShowAnswerSectionEvent(id));
         } else if (token.startsWith("entity")) {
             //Another form

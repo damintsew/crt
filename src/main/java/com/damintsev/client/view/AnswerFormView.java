@@ -2,7 +2,6 @@ package com.damintsev.client.view;
 
 import com.damintsev.client.presenter.AnswerFormPresenter;
 import com.damintsev.common.entity.Answer;
-import com.damintsev.common.entity.EntityAnswer;
 import com.damintsev.common.entity.KillerPhrase;
 import com.google.gwt.user.client.ui.IsWidget;
 

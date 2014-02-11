@@ -73,17 +73,19 @@ public class AnswerFormViewImpl implements AnswerFormView {
             }
         });
         valueColumn.setRowHeader(false);
-        valueColumn.setWidth(500);
+        valueColumn.setWidth(485);
         List<ColumnConfig<KillerPhrase, ?>> columnModel = new ArrayList<ColumnConfig<KillerPhrase, ?>>(1);
         columnModel.add(valueColumn);
         killerPhraseGrid = new Grid<KillerPhrase>(new ListStore<KillerPhrase>(new ModelKeyProvider<KillerPhrase>() {
             @Override
             public String getKey(KillerPhrase item) {
-                return item.getId() == null?"null" : item.getId().toString();
+                return item.getId() == null ? "null" : item.getId().toString();
             }
         }), new ColumnModel<KillerPhrase> (columnModel));
+
         GridEditing<KillerPhrase> gridEditing = new GridInlineEditing<KillerPhrase>(killerPhraseGrid);
         gridEditing.addEditor(valueColumn, new TextField());
+
         ToolButton addButton = new ToolButton(ToolButton.PLUS);
         addButton.addSelectHandler(new SelectEvent.SelectHandler() {
             @Override
