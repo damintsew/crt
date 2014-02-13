@@ -32,7 +32,6 @@ import java.util.*;
 /**
  * User: adamintsev
  * Date: 06.02.14
- * //todo написать комментарии
  */
 public class AnswerFormViewImpl implements AnswerFormView {
 
@@ -60,52 +59,6 @@ public class AnswerFormViewImpl implements AnswerFormView {
         initMapField();
     }
 
-    private void initMapField() {
-        ColumnConfig<KillerPhrase, String> valueColumn = new ColumnConfig<KillerPhrase, String>(new AvalueProvider<KillerPhrase, String>("value") {
-            @Override
-            public String getValue(KillerPhrase object) {
-                return object.getValue();
-            }
-
-            @Override
-            public void setValue(KillerPhrase object, String value) {
-                object.setValue(value);
-            }
-        });
-        valueColumn.setRowHeader(false);
-        valueColumn.setWidth(485);
-        List<ColumnConfig<KillerPhrase, ?>> columnModel = new ArrayList<ColumnConfig<KillerPhrase, ?>>(1);
-        columnModel.add(valueColumn);
-        killerPhraseGrid = new Grid<KillerPhrase>(new ListStore<KillerPhrase>(new ModelKeyProvider<KillerPhrase>() {
-            @Override
-            public String getKey(KillerPhrase item) {
-                return item.getId() == null ? "null" : item.getId().toString();
-            }
-        }), new ColumnModel<KillerPhrase> (columnModel));
-
-        GridEditing<KillerPhrase> gridEditing = new GridInlineEditing<KillerPhrase>(killerPhraseGrid);
-        gridEditing.addEditor(valueColumn, new TextField());
-
-        ToolButton addButton = new ToolButton(ToolButton.PLUS);
-        addButton.addSelectHandler(new SelectEvent.SelectHandler() {
-            @Override
-            public void onSelect(SelectEvent event) {
-                killerPhraseGrid.getStore().add(new KillerPhrase());
-            }
-        });
-        ContentPanel panel  = new ContentPanel();
-        panel.setHeaderVisible(false);
-        panel.add(killerPhraseGrid);
-        panel.addButton(new TextButton("Сохранить", new SelectEvent.SelectHandler() {
-            @Override
-            public void onSelect(SelectEvent event) {
-                answerFormPresenter.save();
-            }
-        }));
-        entityContainer.add(addButton, new VerticalLayoutContainer.VerticalLayoutData(-1, -1, new Margins(0,5,5,490)));
-        entityContainer.add(panel, new VerticalLayoutContainer.VerticalLayoutData(1,300));
-    }
-
     @Override
     public void setPresenter(AnswerFormPresenter answerFormPresenter) {
         this.answerFormPresenter = answerFormPresenter;
@@ -120,6 +73,7 @@ public class AnswerFormViewImpl implements AnswerFormView {
         contentPanel.setHeadingText(text);
     }
 
+    @Override
     public void setAnswer(Answer answer) {
         this.answer = answer;
         setPanelHeader(answer.getName());
@@ -130,11 +84,6 @@ public class AnswerFormViewImpl implements AnswerFormView {
 
     public void setEntities(List<Entity> entity) {
         //not yet implemented
-    }
-
-    public List<Entity> getEntities() {
-        //not yet implemented
-        return null;
     }
 
     @Override
@@ -153,5 +102,73 @@ public class AnswerFormViewImpl implements AnswerFormView {
         answer.setName(answerText.getValue());
         answer.setQuestion(typeQuestion.getValue());
         return answer;
+    }
+
+    private void initMapField() {
+        ColumnConfig<KillerPhrase, String> valueColumn = configureColumn();
+        configureGrid(valueColumn);
+
+        ToolButton addButton = configureAddButton();
+        ContentPanel panel = configurePanel();
+
+        entityContainer.add(addButton, new VerticalLayoutContainer.VerticalLayoutData(-1, -1, new Margins(0,5,5,490)));
+        entityContainer.add(panel, new VerticalLayoutContainer.VerticalLayoutData(1,300));
+    }
+
+    private ColumnConfig<KillerPhrase, String> configureColumn(){
+        ColumnConfig<KillerPhrase, String> valueColumn = new ColumnConfig<KillerPhrase, String>(new AvalueProvider<KillerPhrase, String>("value") {
+            @Override
+            public String getValue(KillerPhrase object) {
+                return object.getValue();
+            }
+
+            @Override
+            public void setValue(KillerPhrase object, String value) {
+                object.setValue(value);
+            }
+        });
+        valueColumn.setRowHeader(false);
+        valueColumn.setWidth(485);
+
+        return valueColumn;
+    }
+
+    private void configureGrid(ColumnConfig<KillerPhrase, String> valueColumn){
+        List<ColumnConfig<KillerPhrase, ?>> columnModel = new ArrayList<ColumnConfig<KillerPhrase, ?>>(1);
+        columnModel.add(valueColumn);
+
+        killerPhraseGrid = new Grid<KillerPhrase>(new ListStore<KillerPhrase>(new ModelKeyProvider<KillerPhrase>() {
+            @Override
+            public String getKey(KillerPhrase item) {
+                return item.getId() == null ? "null" : item.getId().toString();
+            }
+        }), new ColumnModel<KillerPhrase> (columnModel));
+
+        GridEditing<KillerPhrase> gridEditing = new GridInlineEditing<KillerPhrase>(killerPhraseGrid);
+        gridEditing.addEditor(valueColumn, new TextField());
+    }
+
+    private ToolButton configureAddButton(){
+        ToolButton addButton = new ToolButton(ToolButton.PLUS);
+        addButton.addSelectHandler(new SelectEvent.SelectHandler() {
+            @Override
+            public void onSelect(SelectEvent event) {
+                killerPhraseGrid.getStore().add(new KillerPhrase());
+            }
+        });
+        return addButton;
+    }
+
+    private ContentPanel configurePanel(){
+        ContentPanel panel = new ContentPanel();
+        panel.setHeaderVisible(false);
+        panel.add(killerPhraseGrid);
+        panel.addButton(new TextButton("Сохранить", new SelectEvent.SelectHandler() {
+            @Override
+            public void onSelect(SelectEvent event) {
+                answerFormPresenter.save();
+            }
+        }));
+        return panel;
     }
 }

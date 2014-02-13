@@ -7,7 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import java.util.List;
 
 /**
- * Async interaface for GWT Rpc calls
+ * Async interface for GWT Rpc calls
  */
 public interface ServerConnectionAsync {
 

@@ -19,7 +19,6 @@ public interface TreePanelView<T extends TreeItem> extends View {
         void removeEntity(T selected);
         Widget asWidget();
         void loadRootElements();
-
         boolean isContentLoaded();
     }
 

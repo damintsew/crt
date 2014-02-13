@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 /**
- * Synchronous interface to server gwt rpc
+ * Synchronous interface to serve gwt rpc
  */
 @RemoteServiceRelativePath("ServerConnection")
 public interface ServerConnection extends RemoteService {

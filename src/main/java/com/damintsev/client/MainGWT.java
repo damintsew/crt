@@ -47,6 +47,9 @@ public class MainGWT implements EntryPoint {
         });
     }
 
+    /**
+     * Run application
+      */
     private void onModuleLoad2() {
         Async.runAsync(new AsyncTask() {
             @Override
